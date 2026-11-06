@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  AGENT
+  ADMIN
+}
+
+enum BienType {
+  VENTE
+  LOCATION
+}
+
+enum PublicationStatus {
+  BROUILLON
+  PUBLIEE
+}
+
+enum BienStatus {
+  DISPONIBLE
+  LOUE
+  VENDU
+}
+
+// ------------------------------------
+// Utilisateur (Post-Better Auth -> JWT stateless)
+// ------------------------------------
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String    // Remplacement de Better Auth
+  role         Role      @default(USER)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  annonces     Annonce[]  @relation("AgentAnnonces")
+  questions    Question[]
+  favoris      Favori[]
+
+  @@map("user")
+}
+
+// ------------------------------------
+// Modèles Métier
+// ------------------------------------
+
+model Annonce {
+  id                String            @id @default(cuid())
+  titre             String
+  description       String
+  type              BienType
+  statusPublication PublicationStatus @default(BROUILLON)
+  statusBien        BienStatus        @default(DISPONIBLE)
+  prix              Float
+  dateDisponibilite DateTime
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  agentId           String
+  agent             User              @relation("AgentAnnonces", fields: [agentId], references: [id], onDelete: Cascade)
+
+  photos            Photo[]
+  questions         Question[]
+  favoris           Favori[]
+
+  @@index([statusPublication, createdAt])
+  @@index([agentId])
+  @@map("annonce")
+}
+
+model Photo {
+  id        String   @id @default(cuid())
+  url       String
+  alt       String?  // Exigence TP: URL + texte alternatif
+  annonceId String
+  annonce   Annonce  @relation(fields: [annonceId], references: [id], onDelete: Cascade)
+
+  @@index([annonceId])
+  @@map("photo")
+}
+
+model Question {
+  id        String   @id @default(cuid())
+  contenu   String
+  reponse   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  annonceId String
+  annonce   Annonce  @relation(fields: [annonceId], references: [id], onDelete: Cascade)
+
+  @@index([annonceId])
+  @@map("question")
+}
+
+model Favori {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  annonceId String
+  annonce   Annonce  @relation(fields: [annonceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, annonceId])
+  @@map("favori")
+}
+

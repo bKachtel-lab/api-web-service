@@ -1,0 +1,27 @@
+# Dépendances Node
+node_modules/
+dist/
+build/
+
+# Fichiers d'environnement (Secrets)
+.env
+
+# Logs et erreurs npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+
+# Éditeurs de code (VS Code)
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Fichiers OS
+.DS_Store
+Thumbs.db
