@@ -6,6 +6,9 @@ import { Errors } from "../common/errors.js";
 import { errorResponse } from "../common/error-schema.js";
 import { hashPassword } from "./password.js";
 import { RegisterBody, UserSchema } from "../schemas/auth.js";
+import { verifyPassword, burnPasswordCheck } from "./password.js";
+import { signToken, getExpiresIn } from "../lib/jwt.js";
+import { LoginBody, TokenResponse } from "../schemas/auth.js";
 
 export const authRoutes = createRouter();
 
@@ -52,4 +55,40 @@ authRoutes.openapi(registerRoute, async (c) => {
     }
     throw e;
   }
+});
+
+const loginRoute = createRoute({
+  method: "post",
+  path: "/login",
+  tags: ["Auth"],
+  summary: "S'authentifier et obtenir un JWT",
+  request: {
+    body: { content: { "application/json": { schema: LoginBody } }, required: true },
+  },
+  responses: {
+    200: { description: "Jeton émis", content: { "application/json": { schema: TokenResponse } } },
+    400: errorResponse("Données invalides"),
+    401: errorResponse("Identifiants invalides"),
+  },
+});
+
+authRoutes.openapi(loginRoute, async (c) => {
+  const { email, password } = c.req.valid("json");
+
+  // Ici on a besoin de passwordHash pour vérifier, mais on ne le renvoie jamais.
+  const user = await prisma.user.findUnique({
+    where: { email },
+    select: { id: true, role: true, passwordHash: true },
+  });
+
+  if (!user) {
+    await burnPasswordCheck(password); // même durée que le cas "mauvais mot de passe"
+    throw Errors.unauthenticated("Identifiants invalides.");
+  }
+  if (!(await verifyPassword(user.passwordHash, password))) {
+    throw Errors.unauthenticated("Identifiants invalides.");
+  }
+
+  const token = signToken({ sub: user.id, role: user.role });
+  return c.json({ token, tokenType: "Bearer" as const, expiresIn: getExpiresIn() }, 200);
 });
