@@ -92,3 +92,27 @@ authRoutes.openapi(loginRoute, async (c) => {
   const token = signToken({ sub: user.id, role: user.role });
   return c.json({ token, tokenType: "Bearer" as const, expiresIn: getExpiresIn() }, 200);
 });
+
+const meRoute = createRoute({
+  method: "get",
+  path: "/me",
+  tags: ["Auth"],
+  summary: "Profil de l'utilisateur authentifié",
+  security: [{ bearerAuth: [] }], // déclaré dans la spec
+  middleware: [authenticate],
+  responses: {
+    200: { description: "Profil", content: { "application/json": { schema: UserSchema } } },
+    401: errorResponse("Jeton absent, invalide ou expiré"),
+  },
+});
+
+authRoutes.openapi(meRoute, async (c) => {
+  const actor = c.get("actor"); // posé par le middleware, issu du JWT vérifié
+  const user = await prisma.user.findUnique({
+    where: { id: actor.id },
+    select: { id: true, name: true, email: true, role: true },
+  });
+  // Le jeton est valide mais le compte a été supprimé depuis.
+  if (!user) throw Errors.unauthenticated("Compte introuvable.");
+  return c.json(user, 200);
+});
