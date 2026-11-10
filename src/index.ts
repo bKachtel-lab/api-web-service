@@ -36,11 +36,7 @@ app.post("/api/auth/login", async (c) => {
     }
 
     // 3. Générer le JWT
-    const token = signToken({
-      userId: user.id,
-      email: user.email,
-      role: user.role,
-    });
+    const token = signToken({ sub: user.id, role: user.role });
 
     return c.json({
       message: "Connexion réussie",
