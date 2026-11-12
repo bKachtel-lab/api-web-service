@@ -1,8 +1,11 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Can } from '../../auth/policy.ts';
+import { createRouter } from '../../common/router.js'; 
+import { Can } from '../../auth/policy.js';
 import { prisma } from '../../lib/db.js';
+import { authenticate } from '../../auth/middleware.js'; 
+import { Actor } from '../../auth/policy.js'; 
 
-export const questionsApp = new OpenAPIHono();
+export const questionsApp = createRouter();
 
 // Schemas Zod pour Questions / Réponses
 const CreateQuestionSchema = z.object({
@@ -21,6 +24,7 @@ const askQuestionRoute = createRoute({
   path: '/annonces/{id}/questions',
   summary: 'Poser une question sur une annonce',
   security: [{ bearerAuth: [] }],
+  middleware: [authenticate] as const, 
   request: {
     params: z.object({ id: z.string().openapi({ param: { name: 'id', in: 'path' } }) }),
     body: { content: { 'application/json': { schema: CreateQuestionSchema } } },
@@ -33,9 +37,11 @@ const askQuestionRoute = createRoute({
 });
 
 questionsApp.openapi(askQuestionRoute, async (c) => {
-  const user = c.get('user');
-  if (!user) return c.json({ code: 'UNAUTHORIZED', message: 'Non authentifié' }, 401);
-
+  const actor = c.get('actor');
+// Vérification via la politique centralisée
+  if (!Can.askQuestion(actor)) {
+    return c.json({ code: 'FORBIDDEN', message: 'Action non autorisée' }, 403);
+  }
   const annonceId = c.req.param('id');
   const annonce = await prisma.annonce.findUnique({ where: { id: annonceId } });
   if (!annonce) return c.json({ code: 'NOT_FOUND', message: 'Annonce introuvable' }, 404);
@@ -45,7 +51,7 @@ questionsApp.openapi(askQuestionRoute, async (c) => {
     data: {
       contenu: body.contenu,
       annonceId,
-      userId: user.id,
+      userId: actor.id,
     },
   });
 
@@ -60,6 +66,7 @@ const answerQuestionRoute = createRoute({
   path: '/questions/{id}/reponse',
   summary: 'Répondre à une question (Agent propriétaire)',
   security: [{ bearerAuth: [] }],
+  middleware: [authenticate] as const, 
   request: {
     params: z.object({ id: z.string().openapi({ param: { name: 'id', in: 'path' } }) }),
     body: { content: { 'application/json': { schema: CreateReponseSchema } } },
@@ -72,8 +79,7 @@ const answerQuestionRoute = createRoute({
 });
 
 questionsApp.openapi(answerQuestionRoute, async (c) => {
-  const user = c.get('user');
-  if (!user) return c.json({ code: 'UNAUTHORIZED', message: 'Non authentifié' }, 401);
+  const actor = c.get('actor');
 
   const questionId = c.req.param('id');
   const question = await prisma.question.findUnique({
@@ -84,7 +90,7 @@ questionsApp.openapi(answerQuestionRoute, async (c) => {
   if (!question) return c.json({ code: 'NOT_FOUND', message: 'Question introuvable' }, 404);
 
   // Vérification : Seul l'agent de l'annonce ou l'admin peut répondre
-  if (!Can.respondToQuestion(user, question.annonce.agentId)) {
+  if (!Can.respondToQuestion(actor, question.annonce.agentId)) {
     return c.json({ code: 'FORBIDDEN', message: 'Seul l\'agent de cette annonce peut y répondre' }, 403);
   }
 

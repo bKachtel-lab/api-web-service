@@ -3,7 +3,7 @@
 // Entrées = données, sortie = booléen. Les routes décident ensuite du code HTTP.
 
 import { Role, PublicationStatus } from "@prisma/client";
-
+export { Role, PublicationStatus }; 
 /** Acteur extrait du JWT. null = visiteur anonyme. */
 export interface Actor {
   id: string;
