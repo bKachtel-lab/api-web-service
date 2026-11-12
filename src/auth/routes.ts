@@ -9,6 +9,7 @@ import { RegisterBody, UserSchema } from "../schemas/auth.js";
 import { verifyPassword, burnPasswordCheck } from "./password.js";
 import { signToken, getExpiresIn } from "../lib/jwt.js";
 import { LoginBody, TokenResponse } from "../schemas/auth.js";
+import { authenticate } from "./middleware.js";
 
 export const authRoutes = createRouter();
 
@@ -99,7 +100,7 @@ const meRoute = createRoute({
   tags: ["Auth"],
   summary: "Profil de l'utilisateur authentifié",
   security: [{ bearerAuth: [] }], // déclaré dans la spec
-  middleware: [authenticate],
+  middleware: [authenticate] as const,
   responses: {
     200: { description: "Profil", content: { "application/json": { schema: UserSchema } } },
     401: errorResponse("Jeton absent, invalide ou expiré"),
