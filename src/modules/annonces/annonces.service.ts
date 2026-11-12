@@ -1,18 +1,15 @@
 import { PublicationStatus, Role } from '@prisma/client';
 import { QueryAnnoncesInput, CreateAnnonceInput, UpdateAnnonceInput } from './annonces.schema.js';
 import { prisma } from '../../lib/db.js';
+import { Actor } from '../../auth/policy.js'; 
 
-export interface AuthUserContext {
-  id: string;
-  role: Role;
-}
 
 export class AnnoncesService {
   /**
    * Lister les annonces avec pagination et filtres
    * Masque les brouillons sauf si c'est l'agent propriétaire ou un ADMIN
    */
-  async findAll(query: QueryAnnoncesInput, currentUser?: AuthUserContext) {
+  async findAll(query: QueryAnnoncesInput, currentUser?: Actor | null) {
     const { page, limit, ville, type, prixMax } = query;
     const skip = (page - 1) * limit;
 

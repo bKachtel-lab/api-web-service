@@ -1,5 +1,8 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { AnnoncesService } from './annonces.service.js';
+import { createRouter } from '../../common/router.js'; 
+import { Actor } from '../../auth/policy.js'; 
+
 import {
   AnnonceIdParamSchema,
   QueryAnnoncesSchema,
@@ -7,8 +10,9 @@ import {
   UpdateAnnonceSchema,
 } from './annonces.schema.js';
 import { Can } from '../../auth/policy.js'; 
+import { authenticate } from '../../auth/middleware.js'; 
 
-export const annoncesApp = new OpenAPIHono();
+export const annoncesApp = createRouter();
 const service = new AnnoncesService();
 
 // ==========================================
@@ -31,8 +35,8 @@ const getAnnoncesRoute = createRoute({
 
 annoncesApp.openapi(getAnnoncesRoute, async (c) => {
   const query = c.req.valid('query');
-  const user = c.get('user'); //  par le middleware Auth JWT 
-  const result = await service.findAll(query, user);
+  const actor = c.get('actor'); //  par le middleware Auth JWT 
+  const result = await service.findAll(query, actor);
   return c.json(result, 200);
 });
 
@@ -54,7 +58,7 @@ const getAnnonceByIdRoute = createRoute({
 
 annoncesApp.openapi(getAnnonceByIdRoute, async (c) => {
   const { id } = c.req.valid('param');
-  const user = c.get('user');
+  const actor = c.get('actor');
   const annonce = await service.findById(id);
 
   if (!annonce) {
@@ -62,7 +66,7 @@ annoncesApp.openapi(getAnnonceByIdRoute, async (c) => {
   }
 
   // Vérification autorisation pure pour la lecture (visibilité brouillon)
-  if (!Can.readAnnonce(user, annonce)) {
+  if (!Can.readAnnonce(actor, annonce)) {
     // Rendu en 404 pour masquer l'existence d'un brouillon non autorisé
     return c.json({ code: 'NOT_FOUND', message: 'Annonce non trouvée' }, 404);
   }
@@ -78,6 +82,7 @@ const createAnnonceRoute = createRoute({
   path: '/',
   summary: 'Créer une annonce (Agent / Admin)',
   security: [{ bearerAuth: [] }],
+  middleware: [authenticate] as const, 
   request: {
     body: {
       content: { 'application/json': { schema: CreateAnnonceSchema } },
@@ -91,14 +96,14 @@ const createAnnonceRoute = createRoute({
 });
 
 annoncesApp.openapi(createAnnonceRoute, async (c) => {
-  const user = c.get('user');
+  const actor = c.get('actor');
   
-  if (!user || (user.role !== 'AGENT' && user.role !== 'ADMIN')) {
+  if (!Can.createAnnonce(actor)) {
     return c.json({ code: 'FORBIDDEN', message: 'Seuls les agents ou admins peuvent créer des annonces' }, 403);
   }
 
   const body = c.req.valid('json');
-  const annonce = await service.create(body, user.id);
+  const annonce = await service.create(body, actor.id);
   return c.json(annonce, 201);
 });
 
@@ -110,6 +115,7 @@ const updateAnnonceRoute = createRoute({
   path: '/{id}',
   summary: 'Modifier une annonce',
   security: [{ bearerAuth: [] }],
+  middleware: [authenticate] as const, 
   request: {
     params: AnnonceIdParamSchema,
     body: { content: { 'application/json': { schema: UpdateAnnonceSchema } } },
@@ -122,12 +128,8 @@ const updateAnnonceRoute = createRoute({
 });
 
 annoncesApp.openapi(updateAnnonceRoute, async (c) => {
-  const user = c.get('user');
+  const actor = c.get('actor');
   const { id } = c.req.valid('param');
-
-  if (!user) {
-    return c.json({ code: 'UNAUTHORIZED', message: 'Authentification requise' }, 401);
-  }
 
   const existing = await service.findById(id);
   if (!existing) {
@@ -135,7 +137,7 @@ annoncesApp.openapi(updateAnnonceRoute, async (c) => {
   }
 
   // Contrôle d'accès IDOR pure
-  if (!Can.mutateAnnonce(user, existing)) {
+  if (!Can.mutateAnnonce(actor, existing)) {
     return c.json({ code: 'FORBIDDEN', message: 'Vous ne pouvez modifier que vos propres annonces' }, 403);
   }
 
@@ -152,6 +154,7 @@ const deleteAnnonceRoute = createRoute({
   path: '/{id}',
   summary: 'Supprimer une annonce',
   security: [{ bearerAuth: [] }],
+  middleware: [authenticate] as const,
   request: {
     params: AnnonceIdParamSchema,
   },
@@ -163,12 +166,9 @@ const deleteAnnonceRoute = createRoute({
 });
 
 annoncesApp.openapi(deleteAnnonceRoute, async (c) => {
-  const user = c.get('user');
+  const actor = c.get('actor');
   const { id } = c.req.valid('param');
 
-  if (!user) {
-    return c.json({ code: 'UNAUTHORIZED', message: 'Authentification requise' }, 401);
-  }
 
   const existing = await service.findById(id);
   if (!existing) {
@@ -176,7 +176,7 @@ annoncesApp.openapi(deleteAnnonceRoute, async (c) => {
   }
 
   // Contrôle d'accès IDOR pure
-  if (!Can.mutateAnnonce(user, existing)) {
+  if (!Can.mutateAnnonce(actor, existing)) {
     return c.json({ code: 'FORBIDDEN', message: 'Vous ne pouvez supprimer que vos propres annonces' }, 403);
   }
 

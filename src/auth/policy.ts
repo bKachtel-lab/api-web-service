@@ -1,45 +1,66 @@
 // src/auth/policy.ts
-import { Role, PublicationStatus } from "@prisma/client";
+// POLITIQUE D'AUTORISATION PURE : aucune dépendance à Hono, Prisma ni HTTP (sauf les types Prisma).
+// Entrées = données, sortie = booléen. Les routes décident ensuite du code HTTP.
 
-export interface UserContext {
+import { Role, PublicationStatus } from "@prisma/client";
+export { Role, PublicationStatus }; 
+/** Acteur extrait du JWT. null = visiteur anonyme. */
+export interface Actor {
   id: string;
   role: Role;
 }
 
-export interface AnnonceContext {
-  id: string;
+/** Alias pour compatibilité si besoin */
+export type UserContext = Actor;
+
+/** Ce que la politique doit savoir d'une annonce (chargée en base). */
+export interface AnnonceRef {
+  id?: string;
   agentId: string;
   statusPublication: PublicationStatus;
 }
 
+/** Pour répondre, on a besoin du propriétaire de l'ANNONCE liée à la question. */
+export interface QuestionRef {
+  annonceAgentId: string;
+}
+
+const isAdmin = (a: Actor | null): boolean => a?.role === Role.ADMIN;
+const isOwner = (a: Actor | null, ownerId: string): boolean =>
+  a !== null && a.id === ownerId;
+
 export const Can = {
-  /**
-   * Une annonce publiée est visible par tous.
-   * Un brouillon n'est visible que par l'Agent propriétaire ou un ADMIN.
-   */
-  readAnnonce: (user: UserContext | null, annonce: AnnonceContext): boolean => {
+  /** Annonce publiée : publique. Brouillon : auteur et admins seulement. */
+  readAnnonce(actor: Actor | null, annonce: AnnonceRef): boolean {
     if (annonce.statusPublication === PublicationStatus.PUBLIEE) return true;
-    if (!user) return false;
-    if (user.role === Role.ADMIN) return true;
-    return user.role === Role.AGENT && user.id === annonce.agentId;
+    return isAdmin(actor) || isOwner(actor, annonce.agentId);
+  },
+
+  /** Création d'une annonce : AGENT ou ADMIN. */
+  createAnnonce(actor: Actor | null): boolean {
+    return actor !== null && (actor.role === Role.AGENT || actor.role === Role.ADMIN);
   },
 
   /**
-   * Seul l'Agent propriétaire de l'annonce ou un ADMIN peut la modifier/supprimer.
-   * (Anti-IDOR)
+   * Modifier / supprimer / publier (Anti-IDOR).
+   * Le rôle AGENT est exigé en plus de la propriété.
    */
-  mutateAnnonce: (user: UserContext, annonce: AnnonceContext): boolean => {
-    if (!user) return false;
-    if (user.role === Role.ADMIN) return true;
-    return user.role === Role.AGENT && user.id === annonce.agentId;
+  mutateAnnonce(actor: Actor | null, annonce: AnnonceRef): boolean {
+    if (actor === null) return false;
+    if (isAdmin(actor)) return true;
+    return actor.role === Role.AGENT && isOwner(actor, annonce.agentId);
   },
 
-  /**
-   * Seul l'Agent propriétaire de l'annonce liée (ou un ADMIN) peut répondre à une question.
-   */
-  respondToQuestion: (user: UserContext, annonceAgentId: string): boolean => {
-    if (!user) return false;
-    if (user.role === Role.ADMIN) return true;
-    return user.role === Role.AGENT && user.id === annonceAgentId;
+  /** Poser une question : tout utilisateur authentifié. */
+  askQuestion(actor: Actor | null): boolean {
+    return actor !== null;
   },
-};
+
+  /** Répondre : agent propriétaire de l'annonce liée, ou admin. */
+  respondToQuestion(actor: Actor | null, questionOrAgentId: QuestionRef | string): boolean {
+    if (actor === null) return false;
+    if (isAdmin(actor)) return true;
+    const agentId = typeof questionOrAgentId === "string" ? questionOrAgentId : questionOrAgentId.annonceAgentId;
+    return actor.role === Role.AGENT && isOwner(actor, agentId);
+  },
+} as const;
