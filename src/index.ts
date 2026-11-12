@@ -1,19 +1,47 @@
-// src/index.ts
-import { Hono } from "hono";
+import { OpenAPIHono } from "@hono/zod-openapi";
+import { swaggerUI } from "@hono/swagger-ui";
 import { serve } from "@hono/node-server";
 import { prisma } from "./lib/db.js";
 import { signToken } from "./lib/jwt.js";
 import * as argon2 from "argon2";
 import "dotenv/config";
 
-const app = new Hono();
+// Import de tes modules
+import { annoncesApp } from "./modules/annonces/annonces.controller.js";
+import { questionsApp } from "./modules/questions/questions.controller.js";
 
-// Route de test de l'API
+const app = new OpenAPIHono();
+
+// ==========================================
+// 1. Documentation OpenAPI 3.1 & Swagger UI
+// ==========================================
+app.doc("/openapi.json", {
+  openapi: "3.1.0",
+  info: {
+    title: "ImmoService API",
+    version: "1.0.0",
+    description: "API de gestion immobilière - TP2",
+  },
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+      },
+    },
+  },
+});
+
+app.get("/docs", swaggerUI({ url: "/openapi.json" }));
+
+// ==========================================
+// 2. Routes de base & Auth (Binôme A)
+// ==========================================
 app.get("/", (c) => {
   return c.json({ message: "Bienvenue sur l'API ImmoService 🏠" });
 });
 
-// Route de Connexion (Login) -> Génère un JWT
 app.post("/api/auth/login", async (c) => {
   try {
     const body = await c.req.json();
@@ -23,19 +51,16 @@ app.post("/api/auth/login", async (c) => {
       return c.json({ error: "Email et mot de passe requis" }, 400);
     }
 
-    // 1. Rechercher l'utilisateur en base
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
       return c.json({ error: "Identifiants invalides" }, 401);
     }
 
-    // 2. Vérifier le mot de passe avec Argon2
     const validPassword = await argon2.verify(user.passwordHash, password);
     if (!validPassword) {
       return c.json({ error: "Identifiants invalides" }, 401);
     }
 
-    // 3. Générer le JWT
     const token = signToken({
       userId: user.id,
       email: user.email,
@@ -58,8 +83,18 @@ app.post("/api/auth/login", async (c) => {
   }
 });
 
+// ==========================================
+// 3. Montage de tes sous-applications (Binôme B)
+// ==========================================
+app.route("/api/v1/annonces", annoncesApp);
+app.route("/api/v1", questionsApp);
+
+// ==========================================
+// 4. Démarrage du serveur
+// ==========================================
 const port = Number(process.env.PORT) || 3000;
-console.log(`🚀 Serveur démarré sur le port ${port}`);
+console.log(`🚀 Serveur démarré sur http://localhost:${port}`);
+console.log(`📚 Documentation Swagger sur http://localhost:${port}/docs`);
 
 serve({
   fetch: app.fetch,

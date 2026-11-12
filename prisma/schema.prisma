@@ -56,6 +56,7 @@ model Annonce {
   id                String            @id @default(cuid())
   titre             String
   description       String
+  ville             String            // Champ ajouté !
   type              BienType
   statusPublication PublicationStatus @default(BROUILLON)
   statusBien        BienStatus        @default(DISPONIBLE)
@@ -73,6 +74,7 @@ model Annonce {
 
   @@index([statusPublication, createdAt])
   @@index([agentId])
+  @@index([ville])                   // Optionnel : optimise le filtre par ville
   @@map("annonce")
 }
 
