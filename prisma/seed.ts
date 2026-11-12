@@ -68,6 +68,7 @@ async function main() {
     data: {
       titre: "Appartement T3 lumineux - Le Havre Centre",
       description: "Magnifique T3 entièrement rénové proche des commerces et des transports.",
+      ville: "Le Havre",
       type: BienType.VENTE,
       statusPublication: PublicationStatus.PUBLIEE,
       statusBien: BienStatus.DISPONIBLE,
@@ -87,6 +88,7 @@ async function main() {
     data: {
       titre: "Maison d'architecte avec jardin",
       description: "Superbe villa contemporaine au calme absolu.",
+      ville: "Rouen",
       type: BienType.VENTE,
       statusPublication: PublicationStatus.PUBLIEE,
       statusBien: BienStatus.DISPONIBLE,
@@ -103,6 +105,7 @@ async function main() {
     data: {
       titre: "Studio étudiant à rénover [Brouillon]",
       description: "Projet d'investissement locatif idéal.",
+      ville: "Le Havre",
       type: BienType.VENTE,
       statusPublication: PublicationStatus.BROUILLON,
       statusBien: BienStatus.DISPONIBLE,
@@ -117,6 +120,7 @@ async function main() {
     data: {
       titre: "Local commercial vue mer",
       description: "Emplacement n°1 pour votre activité commerciale.",
+      ville: "Fécamp",
       type: BienType.LOCATION,
       statusPublication: PublicationStatus.PUBLIEE,
       statusBien: BienStatus.DISPONIBLE,
