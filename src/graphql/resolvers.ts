@@ -24,6 +24,7 @@ import { AnnoncesService } from "../modules/annonces/annonces.service.js";
 import {
   CreateAnnonceSchema,
   QueryAnnoncesSchema,
+  UpdateAnnonceSchema,
 } from "../modules/annonces/annonces.schema.js";
 import type { GraphQLContext } from "./context.js";
 
@@ -62,6 +63,16 @@ function toFieldErrors(error: z.ZodError) {
     field: i.path.join(".") || "input",
     message: i.message,
   }));
+}
+
+/** Charge l'annonce et vérifie le droit de modification (anti-IDOR), comme le REST. */
+async function loadMutableAnnonce(id: string, actor: Actor) {
+  const existing = await prisma.annonce.findUnique({ where: { id } });
+  if (!existing) throw notFound("Annonce introuvable.");
+  if (!Can.mutateAnnonce(actor, existing)) {
+    throw forbidden("Vous ne pouvez modifier que vos propres annonces.");
+  }
+  return existing;
 }
 
 /**
@@ -244,6 +255,50 @@ export const resolvers = {
         data: { reponse: parsed.data.reponse },
       });
       return { question: updated, errors: [] };
+    },
+
+    /** Modifier : agent propriétaire ou admin. */
+    updateAnnonce: async (
+      _parent: unknown,
+      args: { id: string; input: unknown },
+      ctx: GraphQLContext,
+    ) => {
+      const actor = requireActor(ctx); // 1. authentification
+      await loadMutableAnnonce(args.id, actor); // 2. autorisation (Can.mutateAnnonce)
+      const parsed = UpdateAnnonceSchema.safeParse(stripNulls(args.input)); // 3. validation
+      if (!parsed.success) {
+        return { annonce: null, errors: toFieldErrors(parsed.error) };
+      }
+      const annonce = await service.update(args.id, parsed.data);
+      return { annonce, errors: [] };
+    },
+
+    /** Supprimer : agent propriétaire ou admin. */
+    deleteAnnonce: async (
+      _parent: unknown,
+      args: { id: string },
+      ctx: GraphQLContext,
+    ) => {
+      const actor = requireActor(ctx);
+      await loadMutableAnnonce(args.id, actor);
+      await service.delete(args.id);
+      return { deletedId: args.id, errors: [] };
+    },
+
+    /** Publier / dépublier : même droit que la modification. */
+    setAnnoncePublication: async (
+      _parent: unknown,
+      args: { id: string; publiee: boolean },
+      ctx: GraphQLContext,
+    ) => {
+      const actor = requireActor(ctx);
+      await loadMutableAnnonce(args.id, actor);
+      const annonce = await service.update(args.id, {
+        statusPublication: args.publiee
+          ? PublicationStatus.PUBLIEE
+          : PublicationStatus.BROUILLON,
+      });
+      return { annonce, errors: [] };
     },
   },
 

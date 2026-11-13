@@ -11,6 +11,23 @@ export const typeDefs = /* GraphQL */ `
     AGENT
     ADMIN
   }
+  input UpdateAnnonceInput {
+    titre: String
+    description: String
+    ville: String
+    type: BienType
+    prix: Float
+    dateDisponibilite: String
+    photos: [PhotoInput!]
+    statusPublication: PublicationStatus
+    statusBien: BienStatus
+  }
+
+  type DeleteAnnoncePayload {
+    deletedId: ID
+    errors: [FieldError!]!
+  }
+
   enum BienType {
     VENTE
     LOCATION
@@ -121,6 +138,9 @@ export const typeDefs = /* GraphQL */ `
 
   type Mutation {
     createAnnonce(input: CreateAnnonceInput!): AnnoncePayload!
+    updateAnnonce(id: ID!, input: UpdateAnnonceInput!): AnnoncePayload!
+    deleteAnnonce(id: ID!): DeleteAnnoncePayload!
+    setAnnoncePublication(id: ID!, publiee: Boolean!): AnnoncePayload!
     askQuestion(annonceId: ID!, contenu: String!): QuestionPayload!
     respondToQuestion(questionId: ID!, reponse: String!): QuestionPayload!
   }
