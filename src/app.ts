@@ -8,6 +8,7 @@ import { authRoutes } from "./auth/routes.js";
 import { annoncesApp } from "./modules/annonces/annonces.controller.js";
 import { questionsApp } from "./modules/questions/questions.controller.js";
 import { yoga } from "./graphql/server.js";
+import { httpCache, noStore } from "./middlewares/cache.js";
 
 export const app = createRouter();
 
@@ -42,6 +43,10 @@ app.notFound((c) =>
 
 app.get("/", (c) => c.json({ message: "ImmoService API", docs: "/docs" }));
 
+// Politique de cache HTTP (étape 7)
+app.use("/auth/*", noStore);
+app.use("/graphql", noStore);
+app.use("/annonces/*", httpCache(60)); // GET: public/private + ETag ; mutations: no-store
 // Routes métier
 app.route("/auth", authRoutes);
 app.route("/annonces", annoncesApp);
