@@ -17,7 +17,7 @@ export const QueryAnnoncesSchema = z.object({
     .number()
     .int()
     .min(1)
-    .max(100)
+    .max(50)
     .default(10)
     .openapi({ example: 10 }),
   ville: z.string().optional().openapi({ example: "Le Havre" }),
