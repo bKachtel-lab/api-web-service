@@ -7,27 +7,38 @@ import { openApiConfig } from "./docs.js";
 import { authRoutes } from "./auth/routes.js";
 import { annoncesApp } from "./modules/annonces/annonces.controller.js";
 import { questionsApp } from "./modules/questions/questions.controller.js";
+import { yoga } from "./graphql/server.js";
 
 export const app = createRouter();
 
 // CORS explicite : liste blanche d'origines lue dans .env, jamais "*".
 // Le jeton circule dans l'en-tête Authorization, pas dans un cookie : pas de credentials.
 // CORS ne protège PAS l'API, il restreint seulement les navigateurs.
-const allowed = (process.env.CORS_ORIGIN ?? "").split(",").map((s) => s.trim()).filter(Boolean);
-app.use("*", cors({
-  origin: (origin) => (allowed.includes(origin) ? origin : null),
-  allowHeaders: ["Content-Type", "Authorization"],
-  allowMethods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-}));
+const allowed = (process.env.CORS_ORIGIN ?? "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+app.use(
+  "*",
+  cors({
+    origin: (origin) => (allowed.includes(origin) ? origin : null),
+    allowHeaders: ["Content-Type", "Authorization"],
+    allowMethods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+  }),
+);
 
 // Gestionnaire d'erreurs UNIQUE : toute erreur sort sous la même forme.
 app.onError((err, c) => {
   if (err instanceof AppError) return c.json(err.toBody(), err.status);
   console.error(err); // le détail reste dans les logs, jamais dans la réponse
-  return c.json(new AppError("INTERNAL_ERROR", "Erreur interne.").toBody(), 500);
+  return c.json(
+    new AppError("INTERNAL_ERROR", "Erreur interne.").toBody(),
+    500,
+  );
 });
 app.notFound((c) =>
-  c.json(new AppError("NOT_FOUND", "Route introuvable.").toBody(), 404));
+  c.json(new AppError("NOT_FOUND", "Route introuvable.").toBody(), 404),
+);
 
 app.get("/", (c) => c.json({ message: "ImmoService API", docs: "/docs" }));
 
@@ -35,7 +46,8 @@ app.get("/", (c) => c.json({ message: "ImmoService API", docs: "/docs" }));
 app.route("/auth", authRoutes);
 app.route("/annonces", annoncesApp);
 app.route("/", questionsApp);
-
+// Endpoint GraphQL : Yoga gère GET (GraphiQL) et POST (requêtes) via l'API Fetch standard.
+app.on(["GET", "POST"], "/graphql", (c) => yoga.fetch(c.req.raw));
 // Contrat OpenAPI 3.1 + schéma de sécurité bearerAuth
 app.openAPIRegistry.registerComponent("securitySchemes", "bearerAuth", {
   type: "http",
