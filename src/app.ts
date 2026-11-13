@@ -5,6 +5,8 @@ import { createRouter } from "./common/router.js";
 import { AppError } from "./common/errors.js";
 import { openApiConfig } from "./docs.js";
 import { authRoutes } from "./auth/routes.js";
+import { annoncesApp } from "./modules/annonces/annonces.controller.js";
+import { questionsApp } from "./modules/questions/questions.controller.js";
 
 export const app = createRouter();
 
@@ -31,6 +33,8 @@ app.get("/", (c) => c.json({ message: "ImmoService API", docs: "/docs" }));
 
 // Routes métier
 app.route("/auth", authRoutes);
+app.route("/annonces", annoncesApp);
+app.route("/", questionsApp);
 
 // Contrat OpenAPI 3.1 + schéma de sécurité bearerAuth
 app.openAPIRegistry.registerComponent("securitySchemes", "bearerAuth", {
