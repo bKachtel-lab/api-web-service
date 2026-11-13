@@ -26,10 +26,13 @@ function isAuthenticated(authHeader?: string): boolean {
   }
 }
 
-/** "abc", W/"abc" ou liste séparée par des virgules -> ensemble de tags nus. */
+/** Retire espaces, préfixe faible W/ et guillemets : "abc", W/"abc" et abc sont équivalents. */
+const normalizeTag = (t: string): string =>
+  t.trim().replace(/^W\//, "").replace(/^"|"$/g, "");
+
 function parseIfNoneMatch(value?: string): Set<string> {
   if (!value) return new Set();
-  return new Set(value.split(",").map((t) => t.trim().replace(/^W\//, "")));
+  return new Set(value.split(",").map(normalizeTag));
 }
 
 export const httpCache = (maxAgeSeconds = 60) =>
@@ -56,7 +59,9 @@ export const httpCache = (maxAgeSeconds = 60) =>
     headers.set("ETag", etag);
     headers.append("Vary", "Authorization");
 
-    if (parseIfNoneMatch(c.req.header("If-None-Match")).has(etag)) {
+    if (
+      parseIfNoneMatch(c.req.header("If-None-Match")).has(normalizeTag(etag))
+    ) {
       headers.delete("Content-Type");
       headers.delete("Content-Length");
       c.res = new Response(null, { status: 304, headers }); // rien à renvoyer
