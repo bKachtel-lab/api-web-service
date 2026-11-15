@@ -134,7 +134,7 @@ Tous les comptes utilisent le mot de passe unique : `Password123!`
 
 ### Choix du framework : Hono (plutôt qu'Express ou NestJS)
 - **Typage TypeScript de bout en bout :** Hono infère nativement les types des paramètres de route, des requêtes validées (`c.req.valid(...)`) et des variables de contexte (`c.get('actor')`) sans surcouche de décorateurs.
-- **Standards Web (Fetch API) & légèreté :** Hono s'appuie sur les objets standards `Request` et `Response`, ce qui permet d'intégrer **GraphQL Yoga** en deux lignes (`app.use('/graphql', ...)`), d'exécuter les routes en mémoire et de composer des middlewares légers (CORS, Cache/ETag, Rate Limiting).
+- **Standards Web (Fetch API) & légèreté :** Hono s'appuie sur les objets standards `Request` et `Response`, ce qui permet d'intégrer **GraphQL Yoga** en deux lignes (`pp.on(["GET","POST"], "/graphql", ...)`), d'exécuter les routes en mémoire et de composer des middlewares légers (CORS, Cache/ETag, Rate Limiting).
 - **Intégration native avec Zod :** Le couple `@hono/zod-openapi` permet d'unifier la validation runtime et la documentation OpenAPI dans une seule définition de route.
 
 ### Approche OpenAPI : Code-First via `@hono/zod-openapi`
