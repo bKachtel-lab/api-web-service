@@ -73,6 +73,7 @@ No authorization required
 | **200** | Jeton émis |  -  |
 | **400** | Données invalides |  -  |
 | **401** | Identifiants invalides |  -  |
+| **429** | Trop de tentatives de connexion |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

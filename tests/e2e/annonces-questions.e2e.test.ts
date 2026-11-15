@@ -104,8 +104,16 @@ describe("E2E — Annonces, Questions & Sécurité Anti-IDOR (via SDK)", () => {
             expect(page2.items.length).toBe(1);
             expect(page1.items[0].id).not.toBe(page2.items[0].id);
         });
-    });
 
+        it("plafonne la pagination côté serveur à 50 maximum même si le client demande limit=500", async () => {
+            const { annonces } = createClients();
+            const status = await getHttpStatus(() =>
+                annonces.listerAnnonces({ page: 1, limit: 500 }),
+            );
+            expect(status).toBe(400);
+        });
+    });
+    
     describe("Détail d'une annonce", () => {
         it("renvoie 404 pour une annonce inexistante", async () => {
             const { annonces } = createClients();

@@ -458,6 +458,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+        "429":
+          description: Trop de tentatives de connexion
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /auth/me:
     get:
       tags:

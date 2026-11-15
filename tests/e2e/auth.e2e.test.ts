@@ -6,6 +6,7 @@ import {
     resetAndSeedTestDb,
     createClients,
     getHttpStatus,
+    BASE_URL,
 } from "./helpers.js";
 
 describe("E2E — Authentification & Profil (via SDK)", () => {
@@ -126,4 +127,75 @@ describe("E2E — Authentification & Profil (via SDK)", () => {
 
         expect(status).toBe(401);
     });
+
+    it("bloque au-delà de 5 tentatives de connexion sur /auth/login avec un statut 429", async () => {
+        const { auth } = createClients();
+
+        // 5 premières tentatives échouées -> 401
+        for (let i = 0; i < 5; i++) {
+            const status = await getHttpStatus(() =>
+                auth.authLoginPost({
+                    loginBody: {
+                        email: "agent1@test.fr",
+                        password: "MauvaisPassword!",
+                    },
+                }),
+            );
+            expect(status).toBe(401);
+        }
+
+        // 6e tentative -> 429 RATE_LIMITED
+        const blockedStatus = await getHttpStatus(() =>
+            auth.authLoginPost({
+                loginBody: {
+                    email: "agent1@test.fr",
+                    password: "Password123!",
+                },
+            }),
+        );
+        expect(blockedStatus).toBe(429);
+    });
+
+    it("renvoie les champs attendus à l'inscription", async () => {
+        const { auth } = createClients();
+        const created = await auth.authRegisterPost({
+            registerBody: {
+                name: "Safe User",
+                email: "safe@test.fr",
+                password: "Password123!",
+            },
+        });
+        expect(
+            (created as Record<string, unknown>).passwordHash,
+        ).toBeUndefined();
+
+        expect(created).toMatchObject({
+            name: "Safe User",
+            email: "safe@test.fr",
+            role: "USER",
+        });
+        const { token } = await auth.authLoginPost({
+            loginBody: { email: "safe@test.fr", password: "Password123!" },
+        });
+        const me = await createClients(token).auth.authMeGet();
+        expect((me as Record<string, unknown>).passwordHash).toBeUndefined();
+    });
+
+    it("ne renvoie jamais passwordHash dans la réponse HTTP brute", async () => {
+        const res = await fetch(`${BASE_URL}/auth/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: "Safe User",
+                email: "safe@test.fr",
+                password: "Password123!",
+            }),
+        });
+        const raw = await res.text();
+
+        expect(res.status).toBe(201);
+        expect(raw).not.toContain("passwordHash");
+        expect(raw).not.toContain("$argon2");
+    });
+    
 });
