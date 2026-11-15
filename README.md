@@ -61,8 +61,9 @@ Service web TypeScript de gestion d'annonces immobilières (vente et location) e
    docker compose ps # Vérifier que les conteneurs (dev et test) sont démarrés
    ```
 
-4. **Appliquer les migrations Prisma et peupler la base de développement :**
+4. **Générer le client Prisma, appliquer les migrations et peupler la base de développement :**
    ```bash
+   npx prisma generate
    npx prisma migrate deploy
    npx prisma db seed
    ```
@@ -116,15 +117,15 @@ Le script `prisma/seed.ts` peuple la base avec **12 utilisateurs**, **50 annonce
 
 Tous les comptes utilisent le mot de passe unique : `Password123!`
 
-| Rôle | Nom | Email | Mot de passe | Périmètre dans les tests |
-| :--- | :--- | :--- | :--- | :--- |
-| **AGENT** | Agent Alpha | `agent1@immobilier.fr` | `Password123!` | Propriétaire des annonces #1, #6, #11… (dont des brouillons) |
-| **AGENT** | Agent Beta | `agent2@immobilier.fr` | `Password123!` | Propriétaire des annonces #2, #7, #12… (cible des tests anti-IDOR) |
-| **AGENT** | Agent Gamma | `agent3@immobilier.fr` | `Password123!` | Propriétaire des annonces #3, #8, #13… |
-| **AGENT** | Agent Delta | `agent4@immobilier.fr` | `Password123!` | Propriétaire des annonces #4, #9, #14… |
-| **AGENT** | Agent Epsilon | `agent5@immobilier.fr` | `Password123!` | Propriétaire des annonces #5, #10, #15… |
-| **USER** | Jean Dupont *(+ `user2` à `user6@immobilier.fr`)* | `user1@immobilier.fr` | `Password123!` | Consultation des annonces publiées et dépôt de questions |
-| **ADMIN** | Administrateur | `admin@immobilier.fr` | `Password123!` | Accès complet en lecture et écriture (brouillons inclus) |
+| Rôle      | Nom                                               | Email                  | Mot de passe   | Périmètre dans les tests                                           |
+| :-------- | :------------------------------------------------ | :--------------------- | :------------- | :----------------------------------------------------------------- |
+| **AGENT** | Agent Alpha                                       | `agent1@immobilier.fr` | `Password123!` | Propriétaire des annonces #1, #6, #11… (dont des brouillons)       |
+| **AGENT** | Agent Beta                                        | `agent2@immobilier.fr` | `Password123!` | Propriétaire des annonces #2, #7, #12… (cible des tests anti-IDOR) |
+| **AGENT** | Agent Gamma                                       | `agent3@immobilier.fr` | `Password123!` | Propriétaire des annonces #3, #8, #13…                             |
+| **AGENT** | Agent Delta                                       | `agent4@immobilier.fr` | `Password123!` | Propriétaire des annonces #4, #9, #14…                             |
+| **AGENT** | Agent Epsilon                                     | `agent5@immobilier.fr` | `Password123!` | Propriétaire des annonces #5, #10, #15…                            |
+| **USER**  | Jean Dupont *(+ `user2` à `user6@immobilier.fr`)* | `user1@immobilier.fr`  | `Password123!` | Consultation des annonces publiées et dépôt de questions           |
+| **ADMIN** | Administrateur                                    | `admin@immobilier.fr`  | `Password123!` | Accès complet en lecture et écriture (brouillons inclus)           |
 
 > *N'utilisez jamais ces identifiants ni ces mots de passe en production.*
 
@@ -165,29 +166,29 @@ Nous avons retenu une approche **code-first** pilotée par les schémas **Zod** 
 
 ### Stack technique
 
-| Technologie | Utilisation |
-| :--- | :--- |
-| **Hono & `@hono/zod-openapi`** | Framework web, routage typé et génération OpenAPI 3.1 |
-| **Prisma 7 & PostgreSQL** | ORM, migrations versionnées et bases de données relationnelles |
-| **GraphQL Yoga & DataLoader** | Endpoint `/graphql` et résolution par lots (anti-N+1) |
-| **Argon2 & JWT (`jsonwebtoken`)** | Hachage de mots de passe et authentification stateless HS256 |
-| **OpenAPI Generator (`typescript-fetch`)** | Génération du SDK client consommé par les tests |
-| **Vitest** | Tests unitaires et tests E2E avec garde de sécurité `DATABASE_URL_TEST` |
+| Technologie                                | Utilisation                                                             |
+| :----------------------------------------- | :---------------------------------------------------------------------- |
+| **Hono & `@hono/zod-openapi`**             | Framework web, routage typé et génération OpenAPI 3.1                   |
+| **Prisma 7 & PostgreSQL**                  | ORM, migrations versionnées et bases de données relationnelles          |
+| **GraphQL Yoga & DataLoader**              | Endpoint `/graphql` et résolution par lots (anti-N+1)                   |
+| **Argon2 & JWT (`jsonwebtoken`)**          | Hachage de mots de passe et authentification stateless HS256            |
+| **OpenAPI Generator (`typescript-fetch`)** | Génération du SDK client consommé par les tests                         |
+| **Vitest**                                 | Tests unitaires et tests E2E avec garde de sécurité `DATABASE_URL_TEST` |
 
 ### Scripts NPM
 
-| Commande | Description |
-| :--- | :--- |
-| `npm run dev` | Démarre le serveur de développement sur `http://localhost:3000`. |
-| `npm run build` / `npm start` | Compile en `dist/` puis lance le serveur compilé. |
-| `npm test` | Tests unitaires (`tests/unit`). |
-| `npm run test:e2e` | Tests E2E via le SDK (`tests/e2e`). |
-| `npx tsc --noEmit` | Vérifie le typage TypeScript strict sur tout le projet et le SDK. |
-| `npm run db:migrate` | Crée et applique une migration en développement (`prisma migrate dev`). |
-| `npm run db:test:migrate` | Applique les migrations sur la base de test. |
-| `npm run db:seed` | Peuple la base avec les 12 comptes, 50 annonces et 6 questions (**efface les données existantes**). |
-| `npm run generate:openapi` | Exporte la spécification OpenAPI 3.1 dans `openapi.yaml`. |
-| `npm run generate:sdk` | Exporte le contrat puis régénère le SDK TypeScript (nécessite Java). |
+| Commande                      | Description                                                                                         |
+| :---------------------------- | :-------------------------------------------------------------------------------------------------- |
+| `npm run dev`                 | Démarre le serveur de développement sur `http://localhost:3000`.                                    |
+| `npm run build` / `npm start` | Compile en `dist/` puis lance le serveur compilé.                                                   |
+| `npm test`                    | Tests unitaires (`tests/unit`).                                                                     |
+| `npm run test:e2e`            | Tests E2E via le SDK (`tests/e2e`).                                                                 |
+| `npx tsc --noEmit`            | Vérifie le typage TypeScript strict sur tout le projet et le SDK.                                   |
+| `npm run db:migrate`          | Crée et applique une migration en développement (`prisma migrate dev`).                             |
+| `npm run db:test:migrate`     | Applique les migrations sur la base de test.                                                        |
+| `npm run db:seed`             | Peuple la base avec les 12 comptes, 50 annonces et 6 questions (**efface les données existantes**). |
+| `npm run generate:openapi`    | Exporte la spécification OpenAPI 3.1 dans `openapi.yaml`.                                           |
+| `npm run generate:sdk`        | Exporte le contrat puis régénère le SDK TypeScript (nécessite Java).                                |
 
 ---
 
