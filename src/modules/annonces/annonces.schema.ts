@@ -75,3 +75,56 @@ export type CreateAnnonceInput = z.infer<typeof CreateAnnonceSchema>;
 export const UpdateAnnonceSchema =
   CreateAnnonceSchema.partial().openapi("UpdateAnnonceInput");
 export type UpdateAnnonceInput = z.infer<typeof UpdateAnnonceSchema>;
+
+
+export const PhotoResponseSchema = z.object({
+  id: z.string(),
+  url: z.string(),
+  alt: z.string().nullable().optional(),
+  annonceId: z.string(),
+});
+
+export const AgentSummarySchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string(),
+});
+
+export const QuestionResponseSchema = z.object({
+  id: z.string(),
+  contenu: z.string(),
+  reponse: z.string().nullable().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+  annonceId: z.string(),
+  userId: z.string(),
+}).openapi("Question");
+
+export const AnnonceResponseSchema = z.object({
+  id: z.string(),
+  titre: z.string(),
+  description: z.string(),
+  ville: z.string(),
+  type: z.enum(["VENTE", "LOCATION"]),
+  statusPublication: z.enum(["BROUILLON", "PUBLIEE"]),
+  statusBien: z.enum(["DISPONIBLE", "LOUE", "VENDU"]),
+  prix: z.number(),
+  dateDisponibilite: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+  agentId: z.string(),
+  photos: z.array(PhotoResponseSchema).optional(),
+  agent: AgentSummarySchema.optional(),
+  questions: z.array(QuestionResponseSchema).optional(),
+}).openapi("Annonce");
+
+export const AnnoncePageResponseSchema = z.object({
+  items: z.array(AnnonceResponseSchema),
+  meta: z.object({
+    total: z.number(),
+    page: z.number(),
+    limit: z.number(),
+    totalPages: z.number(),
+  }),
+}).openapi("AnnoncePage");
+

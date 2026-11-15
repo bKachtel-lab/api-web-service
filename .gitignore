@@ -25,3 +25,5 @@ pnpm-debug.log*
 # Fichiers OS
 .DS_Store
 Thumbs.db
+# OpenAPI Generator
+openapi-generator-cli.jar
