@@ -10,6 +10,7 @@ import { verifyPassword, burnPasswordCheck } from "./password.js";
 import { signToken, getExpiresIn } from "../lib/jwt.js";
 import { LoginBody, TokenResponse } from "../schemas/auth.js";
 import { authenticate } from "./middleware.js";
+import { rateLimitLogin } from "../middlewares/rate-limit.js";
 
 export const authRoutes = createRouter();
 
@@ -62,6 +63,7 @@ const loginRoute = createRoute({
   method: "post",
   path: "/login",
   tags: ["Auth"],
+  middleware: [rateLimitLogin(5, 60_000)] as const,
   summary: "S'authentifier et obtenir un JWT",
   request: {
     body: { content: { "application/json": { schema: LoginBody } }, required: true },
@@ -70,6 +72,7 @@ const loginRoute = createRoute({
     200: { description: "Jeton émis", content: { "application/json": { schema: TokenResponse } } },
     400: errorResponse("Données invalides"),
     401: errorResponse("Identifiants invalides"),
+    429: errorResponse("Trop de tentatives de connexion"),
   },
 });
 
