@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.62% </span>
+                <span class="strong">41.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/43</span>
+                <span class='fraction'>18/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.62% </span>
+                <span class="strong">41.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/43</span>
+                <span class='fraction'>18/43</span>
             </div>
         
             
@@ -233,24 +233,24 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -337,25 +337,25 @@ export <span class="fstat-no" title="function not covered" >function instanceOfQ
 <span class="cstat-no" title="statement not covered" >    return true;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function QuestionFromJSON(json: any): Question {</span>
-<span class="cstat-no" title="statement not covered" >    return QuestionFromJSONTyped(json, false);</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+export function QuestionFromJSON(json: any): Question {
+    return QuestionFromJSONTyped(json, false);
+}
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function QuestionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Question {</span>
-<span class="cstat-no" title="statement not covered" >    if (json == null) {</span>
+export function QuestionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Question {
+    if (json == null) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >        return json;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    return {</span>
+    return {
         
-<span class="cstat-no" title="statement not covered" >        'id': json['id'],</span>
-<span class="cstat-no" title="statement not covered" >        'contenu': json['contenu'],</span>
-<span class="cstat-no" title="statement not covered" >        'reponse': json['reponse'] === undefined ? undefined : json['reponse'] === null ? null : json['reponse'],</span>
-<span class="cstat-no" title="statement not covered" >        'createdAt': json['createdAt'],</span>
-<span class="cstat-no" title="statement not covered" >        'updatedAt': json['updatedAt'],</span>
-<span class="cstat-no" title="statement not covered" >        'annonceId': json['annonceId'],</span>
-<span class="cstat-no" title="statement not covered" >        'userId': json['userId'],</span>
-<span class="cstat-no" title="statement not covered" >    };</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+        'id': json['id'],
+        'contenu': json['contenu'],
+        'reponse': json['reponse'] === <span class="branch-0 cbranch-no" title="branch not covered" >undefined ? undefined : j</span>son['reponse'] === null ? null : json['reponse'],
+        'createdAt': json['createdAt'],
+        'updatedAt': json['updatedAt'],
+        'annonceId': json['annonceId'],
+        'userId': json['userId'],
+    };
+}
 &nbsp;
 export <span class="fstat-no" title="function not covered" >function QuestionToJSON(json: any): Question {</span>
 <span class="cstat-no" title="statement not covered" >    return QuestionToJSONTyped(json, false);</span>
@@ -385,7 +385,7 @@ export <span class="fstat-no" title="function not covered" >function QuestionToJ
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T01:13:51.955Z
+                at 2026-11-15T01:34:46.203Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

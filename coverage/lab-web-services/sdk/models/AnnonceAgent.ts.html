@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.62% </span>
+                <span class="strong">43.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/32</span>
+                <span class='fraction'>14/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.62% </span>
+                <span class="strong">43.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/32</span>
+                <span class='fraction'>14/32</span>
             </div>
         
             
@@ -187,20 +187,20 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -264,21 +264,21 @@ export <span class="fstat-no" title="function not covered" >function instanceOfA
 <span class="cstat-no" title="statement not covered" >    return true;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function AnnonceAgentFromJSON(json: any): AnnonceAgent {</span>
-<span class="cstat-no" title="statement not covered" >    return AnnonceAgentFromJSONTyped(json, false);</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+export function AnnonceAgentFromJSON(json: any): AnnonceAgent {
+    return AnnonceAgentFromJSONTyped(json, false);
+}
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function AnnonceAgentFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnnonceAgent {</span>
-<span class="cstat-no" title="statement not covered" >    if (json == null) {</span>
+export function AnnonceAgentFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnnonceAgent {
+    if (json == null) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >        return json;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    return {</span>
+    return {
         
-<span class="cstat-no" title="statement not covered" >        'id': json['id'],</span>
-<span class="cstat-no" title="statement not covered" >        'name': json['name'],</span>
-<span class="cstat-no" title="statement not covered" >        'email': json['email'],</span>
-<span class="cstat-no" title="statement not covered" >    };</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+        'id': json['id'],
+        'name': json['name'],
+        'email': json['email'],
+    };
+}
 &nbsp;
 export <span class="fstat-no" title="function not covered" >function AnnonceAgentToJSON(json: any): AnnonceAgent {</span>
 <span class="cstat-no" title="statement not covered" >    return AnnonceAgentToJSONTyped(json, false);</span>
@@ -304,7 +304,7 @@ export <span class="fstat-no" title="function not covered" >function AnnonceAgen
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T01:13:51.955Z
+                at 2026-11-15T01:34:46.203Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

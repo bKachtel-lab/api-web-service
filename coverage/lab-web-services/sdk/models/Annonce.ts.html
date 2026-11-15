@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24.05% </span>
+                <span class="strong">50.63% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/79</span>
+                <span class='fraction'>40/79</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>4/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24.05% </span>
+                <span class="strong">50.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/79</span>
+                <span class='fraction'>40/79</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -429,32 +429,32 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -639,33 +639,33 @@ export <span class="fstat-no" title="function not covered" >function instanceOfA
 <span class="cstat-no" title="statement not covered" >    return true;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function AnnonceFromJSON(json: any): Annonce {</span>
-<span class="cstat-no" title="statement not covered" >    return AnnonceFromJSONTyped(json, false);</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+export function AnnonceFromJSON(json: any): Annonce {
+    return AnnonceFromJSONTyped(json, false);
+}
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function AnnonceFromJSONTyped(json: any, ignoreDiscriminator: boolean): Annonce {</span>
-<span class="cstat-no" title="statement not covered" >    if (json == null) {</span>
+export function AnnonceFromJSONTyped(json: any, ignoreDiscriminator: boolean): Annonce {
+    if (json == null) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >        return json;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    return {</span>
+    return {
         
-<span class="cstat-no" title="statement not covered" >        'id': json['id'],</span>
-<span class="cstat-no" title="statement not covered" >        'titre': json['titre'],</span>
-<span class="cstat-no" title="statement not covered" >        'description': json['description'],</span>
-<span class="cstat-no" title="statement not covered" >        'ville': json['ville'],</span>
-<span class="cstat-no" title="statement not covered" >        'type': json['type'],</span>
-<span class="cstat-no" title="statement not covered" >        'statusPublication': json['statusPublication'],</span>
-<span class="cstat-no" title="statement not covered" >        'statusBien': json['statusBien'],</span>
-<span class="cstat-no" title="statement not covered" >        'prix': json['prix'],</span>
-<span class="cstat-no" title="statement not covered" >        'dateDisponibilite': json['dateDisponibilite'],</span>
-<span class="cstat-no" title="statement not covered" >        'createdAt': json['createdAt'],</span>
-<span class="cstat-no" title="statement not covered" >        'updatedAt': json['updatedAt'],</span>
-<span class="cstat-no" title="statement not covered" >        'agentId': json['agentId'],</span>
-<span class="cstat-no" title="statement not covered" >        'photos': json['photos'] == null ? undefined : ((json['photos'] as Array&lt;any&gt;).map(AnnoncePhotosInnerFromJSON)),</span>
-<span class="cstat-no" title="statement not covered" >        'agent': json['agent'] == null ? undefined : AnnonceAgentFromJSON(json['agent']),</span>
-<span class="cstat-no" title="statement not covered" >        'questions': json['questions'] == null ? undefined : ((json['questions'] as Array&lt;any&gt;).map(QuestionFromJSON)),</span>
-<span class="cstat-no" title="statement not covered" >    };</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+        'id': json['id'],
+        'titre': json['titre'],
+        'description': json['description'],
+        'ville': json['ville'],
+        'type': json['type'],
+        'statusPublication': json['statusPublication'],
+        'statusBien': json['statusBien'],
+        'prix': json['prix'],
+        'dateDisponibilite': json['dateDisponibilite'],
+        'createdAt': json['createdAt'],
+        'updatedAt': json['updatedAt'],
+        'agentId': json['agentId'],
+        'photos': json['photos'] == <span class="branch-0 cbranch-no" title="branch not covered" >null ? undefined : ((j</span>son['photos'] as Array&lt;any&gt;).map(AnnoncePhotosInnerFromJSON)),
+        'agent': json['agent'] == null ? undefined : AnnonceAgentFromJSON(json['agent']),
+        'questions': json['questions'] == null ? <span class="branch-0 cbranch-no" title="branch not covered" >undefined : ((json['questions'] as Array&lt;any&gt;).map(QuestionFromJSON)),</span>
+    };
+}
 &nbsp;
 export <span class="fstat-no" title="function not covered" >function AnnonceToJSON(json: any): Annonce {</span>
 <span class="cstat-no" title="statement not covered" >    return AnnonceToJSONTyped(json, false);</span>
@@ -703,7 +703,7 @@ export <span class="fstat-no" title="function not covered" >function AnnonceToJS
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T01:13:51.955Z
+                at 2026-11-15T01:34:46.203Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

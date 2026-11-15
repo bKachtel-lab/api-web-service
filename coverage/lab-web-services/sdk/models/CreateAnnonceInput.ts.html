@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.14% </span>
+                <span class="strong">55.73% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/61</span>
+                <span class='fraction'>34/61</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.14% </span>
+                <span class="strong">55.73% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/61</span>
+                <span class='fraction'>34/61</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -351,27 +351,27 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* tslint:disable */
 /* eslint-disable */
@@ -505,28 +505,28 @@ export <span class="fstat-no" title="function not covered" >function CreateAnnon
 <span class="cstat-no" title="statement not covered" >    };</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function CreateAnnonceInputToJSON(json: any): CreateAnnonceInput {</span>
-<span class="cstat-no" title="statement not covered" >    return CreateAnnonceInputToJSONTyped(json, false);</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+export function CreateAnnonceInputToJSON(json: any): CreateAnnonceInput {
+    return CreateAnnonceInputToJSONTyped(json, false);
+}
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function CreateAnnonceInputToJSONTyped(value?: CreateAnnonceInput | null, ignoreDiscriminator: boolean = false): any {</span>
-<span class="cstat-no" title="statement not covered" >    if (value == null) {</span>
+export function CreateAnnonceInputToJSONTyped(value?: CreateAnnonceInput | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >        return value;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return {</span>
+    return {
         
-<span class="cstat-no" title="statement not covered" >        'titre': value['titre'],</span>
-<span class="cstat-no" title="statement not covered" >        'description': value['description'],</span>
-<span class="cstat-no" title="statement not covered" >        'ville': value['ville'],</span>
-<span class="cstat-no" title="statement not covered" >        'type': value['type'],</span>
-<span class="cstat-no" title="statement not covered" >        'prix': value['prix'],</span>
-<span class="cstat-no" title="statement not covered" >        'dateDisponibilite': value['dateDisponibilite'],</span>
-<span class="cstat-no" title="statement not covered" >        'photos': value['photos'] == null ? undefined : ((value['photos'] as Array&lt;any&gt;).map(CreateAnnonceInputPhotosInnerToJSON)),</span>
-<span class="cstat-no" title="statement not covered" >        'statusPublication': value['statusPublication'],</span>
-<span class="cstat-no" title="statement not covered" >        'statusBien': value['statusBien'],</span>
-<span class="cstat-no" title="statement not covered" >    };</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+        'titre': value['titre'],
+        'description': value['description'],
+        'ville': value['ville'],
+        'type': value['type'],
+        'prix': value['prix'],
+        'dateDisponibilite': value['dateDisponibilite'],
+        'photos': value['photos'] == null ? <span class="branch-0 cbranch-no" title="branch not covered" >undefined : ((value['photos'] as Array&lt;any&gt;).map(CreateAnnonceInputPhotosInnerToJSON)),</span>
+        'statusPublication': value['statusPublication'],
+        'statusBien': value['statusBien'],
+    };
+}
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
@@ -535,7 +535,7 @@ export <span class="fstat-no" title="function not covered" >function CreateAnnon
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T01:13:51.955Z
+                at 2026-11-15T01:34:46.203Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
