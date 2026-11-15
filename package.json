@@ -8,6 +8,7 @@
     "start": "node dist/index.js",
     "db:seed": "prisma db seed",
     "db:migrate": "prisma migrate dev",
+    "db:test:migrate": "dotenv -e .env -- sh -c 'DATABASE_URL=\"$DATABASE_URL_TEST\" prisma migrate deploy'",
     "test": "vitest run tests/unit",
     "test:e2e": "vitest run tests/e2e",
     "generate:sdk": "npm run generate:openapi && npx @openapitools/openapi-generator-cli generate -i openapi.yaml -g typescript-fetch -o ./sdk",
