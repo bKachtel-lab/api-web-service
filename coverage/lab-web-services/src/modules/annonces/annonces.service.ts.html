@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.47% </span>
+                <span class="strong">91.48% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>86/92</span>
+                <span class='fraction'>86/94</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.47% </span>
+                <span class="strong">91.48% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>86/92</span>
+                <span class='fraction'>86/94</span>
             </div>
         
             
@@ -194,7 +194,16 @@
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
 <a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -311,6 +320,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -325,11 +336,15 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { PublicationStatus, Role } from '@prisma/client';
-import { QueryAnnoncesInput, CreateAnnonceInput, UpdateAnnonceInput } from './annonces.schema.js';
-import { prisma } from '../../lib/db.js';
-import { Actor } from '../../auth/policy.js'; 
-&nbsp;
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { PublicationStatus, Role } from "@prisma/client";
+import {
+  QueryAnnoncesInput,
+  CreateAnnonceInput,
+  UpdateAnnonceInput,
+} from "./annonces.schema.js";
+import { prisma } from "../../lib/db.js";
+import { Actor } from "../../auth/policy.js";
 &nbsp;
 export class AnnoncesService {
   /**
@@ -345,7 +360,7 @@ export class AnnoncesService {
 &nbsp;
     // Filtre par ville (insensible à la casse)
     if (ville) {
-      where.ville = { contains: ville, mode: 'insensitive' };
+      where.ville = { contains: ville, mode: "insensitive" };
     }
 &nbsp;
     if (type) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
@@ -363,7 +378,7 @@ export class AnnoncesService {
       // Un AGENT voit les publiées + SES propres brouillons
       where.OR = [
         { statusPublication: PublicationStatus.PUBLIEE },
-        { agentId: currentUser.id }
+        { agentId: currentUser.id },
       ];
     }
     // L'ADMIN voit tout par défaut (pas de contrainte de statut imposée)
@@ -374,14 +389,14 @@ export class AnnoncesService {
         where,
         skip,
         take: limit,
-        orderBy: { createdAt: 'desc' },
+        orderBy: { createdAt: "desc" },
         include: {
           photos: true,
           agent: {
-            select: { id: true, name: true, email: true }
-          }
-        }
-      })
+            select: { id: true, name: true },
+          },
+        },
+      }),
     ]);
 &nbsp;
     const totalPages = Math.ceil(total / limit);
@@ -392,8 +407,8 @@ export class AnnoncesService {
         total,
         page,
         limit,
-        totalPages
-      }
+        totalPages,
+      },
     };
   }
 &nbsp;
@@ -405,9 +420,9 @@ export class AnnoncesService {
       where: { id },
       include: {
         photos: true,
-        agent: { select: { id: true, name: true, email: true } },
+        agent: { select: { id: true, name: true } },
         questions: true,
-      }
+      },
     });
   }
 &nbsp;
@@ -421,9 +436,9 @@ export class AnnoncesService {
       data: {
         ...annonceData,
         agentId,
-        photos: photos &amp;&amp; photos.length &gt; <span class="branch-0 cbranch-no" title="branch not covered" >0 ? { create: photos } : u</span>ndefined
+        photos: photos &amp;&amp; photos.length &gt; <span class="branch-0 cbranch-no" title="branch not covered" >0 ? { create: photos } : u</span>ndefined,
       },
-      include: { photos: true }
+      include: { photos: true },
     });
   }
 &nbsp;
@@ -437,14 +452,16 @@ export class AnnoncesService {
       where: { id },
       data: {
         ...annonceData,
-        ...(<span class="branch-0 cbranch-no" title="branch not covered" >photos ? {</span>
-<span class="cstat-no" title="statement not covered" >          photos: {</span>
-<span class="cstat-no" title="statement not covered" >            deleteMany: {},</span>
-<span class="cstat-no" title="statement not covered" >            create: photos</span>
-<span class="cstat-no" title="statement not covered" >          }</span>
-        } : {})
+        ...(<span class="branch-0 cbranch-no" title="branch not covered" >photos</span>
+<span class="cstat-no" title="statement not covered" >          ? {</span>
+<span class="cstat-no" title="statement not covered" >              photos: {</span>
+<span class="cstat-no" title="statement not covered" >                deleteMany: {},</span>
+<span class="cstat-no" title="statement not covered" >                create: photos,</span>
+<span class="cstat-no" title="statement not covered" >              },</span>
+<span class="cstat-no" title="statement not covered" >            }</span>
+          : {}),
       },
-      include: { photos: true }
+      include: { photos: true },
     });
   }
 &nbsp;
@@ -453,17 +470,18 @@ export class AnnoncesService {
    */
   async delete(id: string) {
     return prisma.annonce.delete({
-      where: { id }
+      where: { id },
     });
   }
-}</pre></td></tr></table></pre>
+}
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T01:34:46.203Z
+                at 2026-11-15T02:00:37.261Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

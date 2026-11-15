@@ -30,7 +30,7 @@ export interface AnnonceAgent {
     /**
      * 
      */
-    email: string;
+    email?: string;
 }
 
 /**
@@ -39,7 +39,6 @@ export interface AnnonceAgent {
 export function instanceOfAnnonceAgent(value: object): value is AnnonceAgent {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
-    if (!('email' in value) || value['email'] === undefined) return false;
     return true;
 }
 
@@ -55,7 +54,7 @@ export function AnnonceAgentFromJSONTyped(json: any, ignoreDiscriminator: boolea
         
         'id': json['id'],
         'name': json['name'],
-        'email': json['email'],
+        'email': json['email'] == null ? undefined : json['email'],
     };
 }
 

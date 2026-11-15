@@ -87,7 +87,7 @@ export const PhotoResponseSchema = z.object({
 export const AgentSummarySchema = z.object({
   id: z.string(),
   name: z.string(),
-  email: z.string(),
+  email: z.string().optional(),
 });
 
 export const QuestionResponseSchema = z.object({
