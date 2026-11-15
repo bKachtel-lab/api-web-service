@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">11.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/43</span>
+                <span class='fraction'>5/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/5</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">11.62% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/43</span>
+                <span class='fraction'>5/43</span>
             </div>
         
             
@@ -222,6 +222,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -232,31 +252,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -327,7 +327,7 @@ export interface Question {
 /**
  * Check if a given object implements the Question interface.
  */
-<span class="cstat-no" title="statement not covered" >export function instanceOfQuestion(value: object): value is Question {</span>
+export <span class="fstat-no" title="function not covered" >function instanceOfQuestion(value: object): value is Question {</span>
 <span class="cstat-no" title="statement not covered" >    if (!('id' in value) || value['id'] === undefined) return false;</span>
 <span class="cstat-no" title="statement not covered" >    if (!('contenu' in value) || value['contenu'] === undefined) return false;</span>
 <span class="cstat-no" title="statement not covered" >    if (!('createdAt' in value) || value['createdAt'] === undefined) return false;</span>
@@ -337,11 +337,11 @@ export interface Question {
 <span class="cstat-no" title="statement not covered" >    return true;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function QuestionFromJSON(json: any): Question {</span>
+export <span class="fstat-no" title="function not covered" >function QuestionFromJSON(json: any): Question {</span>
 <span class="cstat-no" title="statement not covered" >    return QuestionFromJSONTyped(json, false);</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function QuestionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Question {</span>
+export <span class="fstat-no" title="function not covered" >function QuestionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Question {</span>
 <span class="cstat-no" title="statement not covered" >    if (json == null) {</span>
 <span class="cstat-no" title="statement not covered" >        return json;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
@@ -357,11 +357,11 @@ export interface Question {
 <span class="cstat-no" title="statement not covered" >    };</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function QuestionToJSON(json: any): Question {</span>
+export <span class="fstat-no" title="function not covered" >function QuestionToJSON(json: any): Question {</span>
 <span class="cstat-no" title="statement not covered" >    return QuestionToJSONTyped(json, false);</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function QuestionToJSONTyped(value?: Question | null, ignoreDiscriminator: boolean = false): any {</span>
+export <span class="fstat-no" title="function not covered" >function QuestionToJSONTyped(value?: Question | null, ignoreDiscriminator: boolean = false): any {</span>
 <span class="cstat-no" title="statement not covered" >    if (value == null) {</span>
 <span class="cstat-no" title="statement not covered" >        return value;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
@@ -385,7 +385,7 @@ export interface Question {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T00:23:38.609Z
+                at 2026-11-15T01:13:51.955Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

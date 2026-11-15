@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">47.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/36</span>
+                <span class='fraction'>17/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">47.22% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/36</span>
+                <span class='fraction'>17/36</span>
             </div>
         
             
@@ -192,20 +192,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -214,23 +210,27 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -282,16 +282,16 @@ export interface TokenResponse {
 /**
  * @export
  */
-<span class="cstat-no" title="statement not covered" >export const TokenResponseTokenTypeEnum = {</span>
-<span class="cstat-no" title="statement not covered" >    Bearer: 'Bearer',</span>
-<span class="cstat-no" title="statement not covered" >} as const;</span>
+export const TokenResponseTokenTypeEnum = {
+    Bearer: 'Bearer',
+} as const;
 export type TokenResponseTokenTypeEnum = typeof TokenResponseTokenTypeEnum[keyof typeof TokenResponseTokenTypeEnum];
 &nbsp;
 &nbsp;
 /**
  * Check if a given object implements the TokenResponse interface.
  */
-<span class="cstat-no" title="statement not covered" >export function instanceOfTokenResponse(value: object): value is TokenResponse {</span>
+export <span class="fstat-no" title="function not covered" >function instanceOfTokenResponse(value: object): value is TokenResponse {</span>
 <span class="cstat-no" title="statement not covered" >    if (!('token' in value) || value['token'] === undefined) return false;</span>
 <span class="cstat-no" title="statement not covered" >    if (!('tokenType' in value) || value['tokenType'] === undefined) return false;</span>
 <span class="cstat-no" title="statement not covered" >    if (value['tokenType'] !== 'Bearer') return false;</span>
@@ -300,27 +300,27 @@ export type TokenResponseTokenTypeEnum = typeof TokenResponseTokenTypeEnum[keyof
 <span class="cstat-no" title="statement not covered" >    return true;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function TokenResponseFromJSON(json: any): TokenResponse {</span>
-<span class="cstat-no" title="statement not covered" >    return TokenResponseFromJSONTyped(json, false);</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+export function TokenResponseFromJSON(json: any): TokenResponse {
+    return TokenResponseFromJSONTyped(json, false);
+}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function TokenResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): TokenResponse {</span>
-<span class="cstat-no" title="statement not covered" >    if (json == null) {</span>
+export function TokenResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): TokenResponse {
+    if (json == null) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >        return json;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    return {</span>
+    return {
         
-<span class="cstat-no" title="statement not covered" >        'token': json['token'],</span>
-<span class="cstat-no" title="statement not covered" >        'tokenType': json['tokenType'],</span>
-<span class="cstat-no" title="statement not covered" >        'expiresIn': json['expiresIn'],</span>
-<span class="cstat-no" title="statement not covered" >    };</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+        'token': json['token'],
+        'tokenType': json['tokenType'],
+        'expiresIn': json['expiresIn'],
+    };
+}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function TokenResponseToJSON(json: any): TokenResponse {</span>
+export <span class="fstat-no" title="function not covered" >function TokenResponseToJSON(json: any): TokenResponse {</span>
 <span class="cstat-no" title="statement not covered" >    return TokenResponseToJSONTyped(json, false);</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function TokenResponseToJSONTyped(value?: TokenResponse | null, ignoreDiscriminator: boolean = false): any {</span>
+export <span class="fstat-no" title="function not covered" >function TokenResponseToJSONTyped(value?: TokenResponse | null, ignoreDiscriminator: boolean = false): any {</span>
 <span class="cstat-no" title="statement not covered" >    if (value == null) {</span>
 <span class="cstat-no" title="statement not covered" >        return value;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
@@ -340,7 +340,7 @@ export type TokenResponseTokenTypeEnum = typeof TokenResponseTokenTypeEnum[keyof
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T00:23:38.609Z
+                at 2026-11-15T01:13:51.955Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

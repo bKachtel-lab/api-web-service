@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">44.82% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/29</span>
+                <span class='fraction'>13/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">44.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/29</span>
+                <span class='fraction'>13/29</span>
             </div>
         
             
@@ -168,27 +168,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -198,12 +189,21 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* tslint:disable */
 /* eslint-disable */
@@ -239,17 +239,17 @@ export interface LoginBody {
 /**
  * Check if a given object implements the LoginBody interface.
  */
-<span class="cstat-no" title="statement not covered" >export function instanceOfLoginBody(value: object): value is LoginBody {</span>
+export <span class="fstat-no" title="function not covered" >function instanceOfLoginBody(value: object): value is LoginBody {</span>
 <span class="cstat-no" title="statement not covered" >    if (!('email' in value) || value['email'] === undefined) return false;</span>
 <span class="cstat-no" title="statement not covered" >    if (!('password' in value) || value['password'] === undefined) return false;</span>
 <span class="cstat-no" title="statement not covered" >    return true;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function LoginBodyFromJSON(json: any): LoginBody {</span>
+export <span class="fstat-no" title="function not covered" >function LoginBodyFromJSON(json: any): LoginBody {</span>
 <span class="cstat-no" title="statement not covered" >    return LoginBodyFromJSONTyped(json, false);</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function LoginBodyFromJSONTyped(json: any, ignoreDiscriminator: boolean): LoginBody {</span>
+export <span class="fstat-no" title="function not covered" >function LoginBodyFromJSONTyped(json: any, ignoreDiscriminator: boolean): LoginBody {</span>
 <span class="cstat-no" title="statement not covered" >    if (json == null) {</span>
 <span class="cstat-no" title="statement not covered" >        return json;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
@@ -260,21 +260,21 @@ export interface LoginBody {
 <span class="cstat-no" title="statement not covered" >    };</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function LoginBodyToJSON(json: any): LoginBody {</span>
-<span class="cstat-no" title="statement not covered" >    return LoginBodyToJSONTyped(json, false);</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+export function LoginBodyToJSON(json: any): LoginBody {
+    return LoginBodyToJSONTyped(json, false);
+}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function LoginBodyToJSONTyped(value?: LoginBody | null, ignoreDiscriminator: boolean = false): any {</span>
-<span class="cstat-no" title="statement not covered" >    if (value == null) {</span>
+export function LoginBodyToJSONTyped(value?: LoginBody | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >        return value;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return {</span>
+    return {
         
-<span class="cstat-no" title="statement not covered" >        'email': value['email'],</span>
-<span class="cstat-no" title="statement not covered" >        'password': value['password'],</span>
-<span class="cstat-no" title="statement not covered" >    };</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+        'email': value['email'],
+        'password': value['password'],
+    };
+}
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
@@ -283,7 +283,7 @@ export interface LoginBody {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T00:23:38.609Z
+                at 2026-11-15T01:13:51.955Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

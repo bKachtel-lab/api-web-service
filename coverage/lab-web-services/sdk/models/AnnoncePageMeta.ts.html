@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/35</span>
+                <span class='fraction'>5/35</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/5</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/35</span>
+                <span class='fraction'>5/35</span>
             </div>
         
             
@@ -190,9 +190,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -201,25 +211,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -275,7 +275,7 @@ export interface AnnoncePageMeta {
 /**
  * Check if a given object implements the AnnoncePageMeta interface.
  */
-<span class="cstat-no" title="statement not covered" >export function instanceOfAnnoncePageMeta(value: object): value is AnnoncePageMeta {</span>
+export <span class="fstat-no" title="function not covered" >function instanceOfAnnoncePageMeta(value: object): value is AnnoncePageMeta {</span>
 <span class="cstat-no" title="statement not covered" >    if (!('total' in value) || value['total'] === undefined) return false;</span>
 <span class="cstat-no" title="statement not covered" >    if (!('page' in value) || value['page'] === undefined) return false;</span>
 <span class="cstat-no" title="statement not covered" >    if (!('limit' in value) || value['limit'] === undefined) return false;</span>
@@ -283,11 +283,11 @@ export interface AnnoncePageMeta {
 <span class="cstat-no" title="statement not covered" >    return true;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function AnnoncePageMetaFromJSON(json: any): AnnoncePageMeta {</span>
+export <span class="fstat-no" title="function not covered" >function AnnoncePageMetaFromJSON(json: any): AnnoncePageMeta {</span>
 <span class="cstat-no" title="statement not covered" >    return AnnoncePageMetaFromJSONTyped(json, false);</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function AnnoncePageMetaFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnnoncePageMeta {</span>
+export <span class="fstat-no" title="function not covered" >function AnnoncePageMetaFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnnoncePageMeta {</span>
 <span class="cstat-no" title="statement not covered" >    if (json == null) {</span>
 <span class="cstat-no" title="statement not covered" >        return json;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
@@ -300,11 +300,11 @@ export interface AnnoncePageMeta {
 <span class="cstat-no" title="statement not covered" >    };</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function AnnoncePageMetaToJSON(json: any): AnnoncePageMeta {</span>
+export <span class="fstat-no" title="function not covered" >function AnnoncePageMetaToJSON(json: any): AnnoncePageMeta {</span>
 <span class="cstat-no" title="statement not covered" >    return AnnoncePageMetaToJSONTyped(json, false);</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function AnnoncePageMetaToJSONTyped(value?: AnnoncePageMeta | null, ignoreDiscriminator: boolean = false): any {</span>
+export <span class="fstat-no" title="function not covered" >function AnnoncePageMetaToJSONTyped(value?: AnnoncePageMeta | null, ignoreDiscriminator: boolean = false): any {</span>
 <span class="cstat-no" title="statement not covered" >    if (value == null) {</span>
 <span class="cstat-no" title="statement not covered" >        return value;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
@@ -325,7 +325,7 @@ export interface AnnoncePageMeta {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T00:23:38.609Z
+                at 2026-11-15T01:13:51.955Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

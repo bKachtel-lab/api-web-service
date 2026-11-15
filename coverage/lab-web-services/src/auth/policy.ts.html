@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">37.03% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/27</span>
+                <span class='fraction'>10/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>24/25</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">37.03% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/27</span>
+                <span class='fraction'>10/27</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -157,42 +157,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">// src/auth/policy.ts
 // POLITIQUE D'AUTORISATION PURE : aucune dépendance à Hono, Prisma ni HTTP (sauf les types Prisma).
 // Entrées = données, sortie = booléen. Les routes décident ensuite du code HTTP.
@@ -220,44 +220,44 @@ export interface QuestionRef {
   annonceAgentId: string;
 }
 &nbsp;
-const isAdmin = (a: Actor | null): boolean =&gt; a?.role === Role.ADMIN;
-const isOwner = (a: Actor | null, ownerId: string): boolean =&gt;
-  a !== null &amp;&amp; a.id === ownerId;
+const isAdmin = <span class="fstat-no" title="function not covered" >(a: Actor | null): boolean =&gt; a?.role === Role.ADMIN;</span>
+const isOwner = <span class="fstat-no" title="function not covered" >(a: Actor | null, ownerId: string): boolean =&gt;</span>
+<span class="cstat-no" title="statement not covered" >  a !== null &amp;&amp; a.id === ownerId;</span>
 &nbsp;
 export const Can = {
   /** Annonce publiée : publique. Brouillon : auteur et admins seulement. */
-  readAnnonce(actor: Actor | null, annonce: AnnonceRef): boolean {
-    if (annonce.statusPublication === PublicationStatus.PUBLIEE) return true;
-    return isAdmin(actor) || isOwner(actor, annonce.agentId);
-  },
+<span class="fstat-no" title="function not covered" >  readAnnonce(actor: Actor | null, annonce: AnnonceRef): boolean {</span>
+<span class="cstat-no" title="statement not covered" >    if (annonce.statusPublication === PublicationStatus.PUBLIEE) return true;</span>
+<span class="cstat-no" title="statement not covered" >    return isAdmin(actor) || isOwner(actor, annonce.agentId);</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
 &nbsp;
   /** Création d'une annonce : AGENT ou ADMIN. */
-  createAnnonce(actor: Actor | null): boolean {
-    return actor !== null &amp;&amp; (actor.role === Role.AGENT || actor.role === Role.ADMIN);
-  },
+<span class="fstat-no" title="function not covered" >  createAnnonce(actor: Actor | null): boolean {</span>
+<span class="cstat-no" title="statement not covered" >    return actor !== null &amp;&amp; (actor.role === Role.AGENT || actor.role === Role.ADMIN);</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
 &nbsp;
   /**
    * Modifier / supprimer / publier (Anti-IDOR).
    * Le rôle AGENT est exigé en plus de la propriété.
    */
-  mutateAnnonce(actor: Actor | null, annonce: AnnonceRef): boolean {
-    if (actor === null) return false;
-    if (isAdmin(actor)) return true;
-    return actor.role === Role.AGENT &amp;&amp; isOwner(actor, annonce.agentId);
-  },
+<span class="fstat-no" title="function not covered" >  mutateAnnonce(actor: Actor | null, annonce: AnnonceRef): boolean {</span>
+<span class="cstat-no" title="statement not covered" >    if (actor === null) return false;</span>
+<span class="cstat-no" title="statement not covered" >    if (isAdmin(actor)) return true;</span>
+<span class="cstat-no" title="statement not covered" >    return actor.role === Role.AGENT &amp;&amp; isOwner(actor, annonce.agentId);</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
 &nbsp;
   /** Poser une question : tout utilisateur authentifié. */
-  askQuestion(actor: Actor | null): boolean {
-    return actor !== null;
-  },
+<span class="fstat-no" title="function not covered" >  askQuestion(actor: Actor | null): boolean {</span>
+<span class="cstat-no" title="statement not covered" >    return actor !== null;</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
 &nbsp;
   /** Répondre : agent propriétaire de l'annonce liée, ou admin. */
-  respondToQuestion(actor: Actor | null, questionOrAgentId: QuestionRef | string): boolean {
-    if (actor === null) return false;
-    if (isAdmin(actor)) return true;
-    const agentId = typeof questionOrAgentId === "string" ? <span class="branch-0 cbranch-no" title="branch not covered" >questionOrAgentId : questionOrAgentId.annonceAgentId;</span>
-    return actor.role === Role.AGENT &amp;&amp; isOwner(actor, agentId);
-  },
+<span class="fstat-no" title="function not covered" >  respondToQuestion(actor: Actor | null, questionOrAgentId: QuestionRef | string): boolean {</span>
+<span class="cstat-no" title="statement not covered" >    if (actor === null) return false;</span>
+<span class="cstat-no" title="statement not covered" >    if (isAdmin(actor)) return true;</span>
+<span class="cstat-no" title="statement not covered" >    const agentId = typeof questionOrAgentId === "string" ? questionOrAgentId : questionOrAgentId.annonceAgentId;</span>
+<span class="cstat-no" title="statement not covered" >    return actor.role === Role.AGENT &amp;&amp; isOwner(actor, agentId);</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
 } as const;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -265,7 +265,7 @@ export const Can = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T00:23:38.609Z
+                at 2026-11-15T01:13:51.955Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

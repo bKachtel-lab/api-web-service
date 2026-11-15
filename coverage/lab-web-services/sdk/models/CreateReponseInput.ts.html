@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">19.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>5/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/5</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">19.23% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>5/26</span>
             </div>
         
             
@@ -157,6 +157,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -166,21 +176,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -221,16 +221,16 @@ export interface CreateReponseInput {
 /**
  * Check if a given object implements the CreateReponseInput interface.
  */
-<span class="cstat-no" title="statement not covered" >export function instanceOfCreateReponseInput(value: object): value is CreateReponseInput {</span>
+export <span class="fstat-no" title="function not covered" >function instanceOfCreateReponseInput(value: object): value is CreateReponseInput {</span>
 <span class="cstat-no" title="statement not covered" >    if (!('reponse' in value) || value['reponse'] === undefined) return false;</span>
 <span class="cstat-no" title="statement not covered" >    return true;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function CreateReponseInputFromJSON(json: any): CreateReponseInput {</span>
+export <span class="fstat-no" title="function not covered" >function CreateReponseInputFromJSON(json: any): CreateReponseInput {</span>
 <span class="cstat-no" title="statement not covered" >    return CreateReponseInputFromJSONTyped(json, false);</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function CreateReponseInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateReponseInput {</span>
+export <span class="fstat-no" title="function not covered" >function CreateReponseInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateReponseInput {</span>
 <span class="cstat-no" title="statement not covered" >    if (json == null) {</span>
 <span class="cstat-no" title="statement not covered" >        return json;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
@@ -240,11 +240,11 @@ export interface CreateReponseInput {
 <span class="cstat-no" title="statement not covered" >    };</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function CreateReponseInputToJSON(json: any): CreateReponseInput {</span>
+export <span class="fstat-no" title="function not covered" >function CreateReponseInputToJSON(json: any): CreateReponseInput {</span>
 <span class="cstat-no" title="statement not covered" >    return CreateReponseInputToJSONTyped(json, false);</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function CreateReponseInputToJSONTyped(value?: CreateReponseInput | null, ignoreDiscriminator: boolean = false): any {</span>
+export <span class="fstat-no" title="function not covered" >function CreateReponseInputToJSONTyped(value?: CreateReponseInput | null, ignoreDiscriminator: boolean = false): any {</span>
 <span class="cstat-no" title="statement not covered" >    if (value == null) {</span>
 <span class="cstat-no" title="statement not covered" >        return value;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
@@ -262,7 +262,7 @@ export interface CreateReponseInput {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T00:23:38.609Z
+                at 2026-11-15T01:13:51.955Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
