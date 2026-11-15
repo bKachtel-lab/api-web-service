@@ -32,6 +32,6 @@ export const TokenResponse = z
   .object({
     token: z.string(),
     tokenType: z.literal("Bearer"),
-    expiresIn: z.string().openapi({ example: "1h" }),
+    expiresIn: z.string().openapi({ example: "30m" }),
   })
   .openapi("TokenResponse");

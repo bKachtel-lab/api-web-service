@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.75% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/32</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.75% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/32</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
@@ -179,19 +179,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -202,22 +196,28 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* tslint:disable */
 /* eslint-disable */
@@ -257,18 +257,18 @@ export interface RegisterBody {
 /**
  * Check if a given object implements the RegisterBody interface.
  */
-export <span class="fstat-no" title="function not covered" >function instanceOfRegisterBody(value: object): value is RegisterBody {</span>
+<span class="cstat-no" title="statement not covered" >export function instanceOfRegisterBody(value: object): value is RegisterBody {</span>
 <span class="cstat-no" title="statement not covered" >    if (!('name' in value) || value['name'] === undefined) return false;</span>
 <span class="cstat-no" title="statement not covered" >    if (!('email' in value) || value['email'] === undefined) return false;</span>
 <span class="cstat-no" title="statement not covered" >    if (!('password' in value) || value['password'] === undefined) return false;</span>
 <span class="cstat-no" title="statement not covered" >    return true;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function RegisterBodyFromJSON(json: any): RegisterBody {</span>
+<span class="cstat-no" title="statement not covered" >export function RegisterBodyFromJSON(json: any): RegisterBody {</span>
 <span class="cstat-no" title="statement not covered" >    return RegisterBodyFromJSONTyped(json, false);</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function RegisterBodyFromJSONTyped(json: any, ignoreDiscriminator: boolean): RegisterBody {</span>
+<span class="cstat-no" title="statement not covered" >export function RegisterBodyFromJSONTyped(json: any, ignoreDiscriminator: boolean): RegisterBody {</span>
 <span class="cstat-no" title="statement not covered" >    if (json == null) {</span>
 <span class="cstat-no" title="statement not covered" >        return json;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
@@ -280,22 +280,22 @@ export <span class="fstat-no" title="function not covered" >function RegisterBod
 <span class="cstat-no" title="statement not covered" >    };</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-export function RegisterBodyToJSON(json: any): RegisterBody {
-    return RegisterBodyToJSONTyped(json, false);
-}
+<span class="cstat-no" title="statement not covered" >export function RegisterBodyToJSON(json: any): RegisterBody {</span>
+<span class="cstat-no" title="statement not covered" >    return RegisterBodyToJSONTyped(json, false);</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-export function RegisterBodyToJSONTyped(value?: RegisterBody | null, ignoreDiscriminator: boolean = false): any {
-    if (value == null) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >export function RegisterBodyToJSONTyped(value?: RegisterBody | null, ignoreDiscriminator: boolean = false): any {</span>
+<span class="cstat-no" title="statement not covered" >    if (value == null) {</span>
 <span class="cstat-no" title="statement not covered" >        return value;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
-    return {
+<span class="cstat-no" title="statement not covered" >    return {</span>
         
-        'name': value['name'],
-        'email': value['email'],
-        'password': value['password'],
-    };
-}
+<span class="cstat-no" title="statement not covered" >        'name': value['name'],</span>
+<span class="cstat-no" title="statement not covered" >        'email': value['email'],</span>
+<span class="cstat-no" title="statement not covered" >        'password': value['password'],</span>
+<span class="cstat-no" title="statement not covered" >    };</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
@@ -304,7 +304,7 @@ export function RegisterBodyToJSONTyped(value?: RegisterBody | null, ignoreDiscr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T11:12:07.020Z
+                at 2026-11-15T15:33:12.211Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

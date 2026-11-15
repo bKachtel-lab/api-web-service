@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">4.65% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/43</span>
+                <span class='fraction'>0/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">4.65% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/43</span>
+                <span class='fraction'>0/43</span>
             </div>
         
             
@@ -137,7 +137,7 @@
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,21 +170,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -205,13 +194,24 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/graphql/loaders.ts
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >// src/graphql/loaders.ts<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
 // RÔLE : DataLoaders = batching + cache par requête pour éviter le problème N+1.
 // Sans eux : lister 20 annonces avec leur auteur = 1 + 20 requêtes SQL.
 // Avec eux : 1 + 1 requête, quel que soit le nombre d'annonces.
@@ -226,7 +226,7 @@ export interface AuteurPublic {
 }
 &nbsp;
 /** Regroupe des lignes par clé (ex. photos par annonceId). */
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function groupBy&lt;T&gt;(rows: T[], key: (row: T) =&gt; string): Map&lt;string, T[]&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >function groupBy&lt;T&gt;(rows: T[], key: (row: T) =&gt; string): Map&lt;string, T[]&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  const map = new Map&lt;string, T[]&gt;();</span>
 <span class="cstat-no" title="statement not covered" >  for (const row of rows) {</span>
 <span class="cstat-no" title="statement not covered" >    const k = key(row);</span>
@@ -244,7 +244,7 @@ export interface AuteurPublic {
  * Règle d'or d'un batch : renvoyer un tableau de MÊME LONGUEUR et dans le MÊME
  * ORDRE que les clés reçues, sinon DataLoader associe les mauvaises données.
  */
-export <span class="fstat-no" title="function not covered" >function createLoaders() {</span>
+<span class="cstat-no" title="statement not covered" >export function createLoaders() {</span>
   // Auteur d'une annonce / auteur d'une question.
   // `select` explicite : seuls id et name sortent de la base (sécurité).
 <span class="cstat-no" title="statement not covered" >  const auteurById = new DataLoader&lt;string, AuteurPublic | null&gt;(</span>
@@ -292,7 +292,7 @@ export type Loaders = ReturnType&lt;typeof createLoaders&gt;;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T11:12:07.020Z
+                at 2026-11-15T15:33:12.211Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

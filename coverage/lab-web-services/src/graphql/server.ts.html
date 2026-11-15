@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/15</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/15</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -94,7 +94,7 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -109,23 +109,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/graphql/server.ts
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >// src/graphql/server.ts<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
 // RÔLE : assemble le serveur GraphQL (graphql-yoga) à partir des briques précédentes.
 //  - schéma + resolvers
 //  - contexte par requête (acteur JWT + loaders)
@@ -140,22 +140,22 @@ import { resolvers } from "./resolvers.js";
 import { buildContext, type GraphQLContext } from "./context.js";
 import { depthLimit } from "./depth.js";
 &nbsp;
-const depthPlugin: Plugin = {
-<span class="fstat-no" title="function not covered" >  onValidate({ addValidationRule }) {</span>
+<span class="cstat-no" title="statement not covered" >const depthPlugin: Plugin = {</span>
+<span class="cstat-no" title="statement not covered" >  onValidate({ addValidationRule }) {</span>
 <span class="cstat-no" title="statement not covered" >    addValidationRule(depthLimit(6));</span>
 <span class="cstat-no" title="statement not covered" >  },</span>
-};
+<span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;
-export const yoga = createYoga({
-  schema: createSchema&lt;GraphQLContext&gt;({ typeDefs, resolvers }),
-  graphqlEndpoint: "/graphql",
-  maskedErrors: true,
-  landingPage: false,
+<span class="cstat-no" title="statement not covered" >export const yoga = createYoga({</span>
+<span class="cstat-no" title="statement not covered" >  schema: createSchema&lt;GraphQLContext&gt;({ typeDefs, resolvers }),</span>
+<span class="cstat-no" title="statement not covered" >  graphqlEndpoint: "/graphql",</span>
+<span class="cstat-no" title="statement not covered" >  maskedErrors: true,</span>
+<span class="cstat-no" title="statement not covered" >  landingPage: false,</span>
   // L'interface GraphiQL sert au développement, désactivée en production.
-  graphiql: process.env.NODE_ENV !== "production",
-  context: <span class="fstat-no" title="function not covered" >({ request }) =&gt; buildContext(request),</span>
-  plugins: [depthPlugin],
-});
+<span class="cstat-no" title="statement not covered" >  graphiql: process.env.NODE_ENV !== "production",</span>
+<span class="cstat-no" title="statement not covered" >  context: ({ request }) =&gt; buildContext(request),</span>
+<span class="cstat-no" title="statement not covered" >  plugins: [depthPlugin],</span>
+<span class="cstat-no" title="statement not covered" >});</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -163,7 +163,7 @@ export const yoga = createYoga({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T11:12:07.020Z
+                at 2026-11-15T15:33:12.211Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

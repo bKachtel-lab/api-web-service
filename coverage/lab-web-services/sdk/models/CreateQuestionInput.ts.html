@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.15% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/26</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.15% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/26</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
@@ -157,16 +157,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -176,20 +166,30 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* tslint:disable */
 /* eslint-disable */
@@ -221,16 +221,16 @@ export interface CreateQuestionInput {
 /**
  * Check if a given object implements the CreateQuestionInput interface.
  */
-export <span class="fstat-no" title="function not covered" >function instanceOfCreateQuestionInput(value: object): value is CreateQuestionInput {</span>
+<span class="cstat-no" title="statement not covered" >export function instanceOfCreateQuestionInput(value: object): value is CreateQuestionInput {</span>
 <span class="cstat-no" title="statement not covered" >    if (!('contenu' in value) || value['contenu'] === undefined) return false;</span>
 <span class="cstat-no" title="statement not covered" >    return true;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function CreateQuestionInputFromJSON(json: any): CreateQuestionInput {</span>
+<span class="cstat-no" title="statement not covered" >export function CreateQuestionInputFromJSON(json: any): CreateQuestionInput {</span>
 <span class="cstat-no" title="statement not covered" >    return CreateQuestionInputFromJSONTyped(json, false);</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-export <span class="fstat-no" title="function not covered" >function CreateQuestionInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateQuestionInput {</span>
+<span class="cstat-no" title="statement not covered" >export function CreateQuestionInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateQuestionInput {</span>
 <span class="cstat-no" title="statement not covered" >    if (json == null) {</span>
 <span class="cstat-no" title="statement not covered" >        return json;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
@@ -240,20 +240,20 @@ export <span class="fstat-no" title="function not covered" >function CreateQuest
 <span class="cstat-no" title="statement not covered" >    };</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-export function CreateQuestionInputToJSON(json: any): CreateQuestionInput {
-    return CreateQuestionInputToJSONTyped(json, false);
-}
+<span class="cstat-no" title="statement not covered" >export function CreateQuestionInputToJSON(json: any): CreateQuestionInput {</span>
+<span class="cstat-no" title="statement not covered" >    return CreateQuestionInputToJSONTyped(json, false);</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-export function CreateQuestionInputToJSONTyped(value?: CreateQuestionInput | null, ignoreDiscriminator: boolean = false): any {
-    if (value == null) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >export function CreateQuestionInputToJSONTyped(value?: CreateQuestionInput | null, ignoreDiscriminator: boolean = false): any {</span>
+<span class="cstat-no" title="statement not covered" >    if (value == null) {</span>
 <span class="cstat-no" title="statement not covered" >        return value;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
-    return {
+<span class="cstat-no" title="statement not covered" >    return {</span>
         
-        'contenu': value['contenu'],
-    };
-}
+<span class="cstat-no" title="statement not covered" >        'contenu': value['contenu'],</span>
+<span class="cstat-no" title="statement not covered" >    };</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
@@ -262,7 +262,7 @@ export function CreateQuestionInputToJSONTyped(value?: CreateQuestionInput | nul
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-15T11:12:07.020Z
+                at 2026-11-15T15:33:12.211Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
