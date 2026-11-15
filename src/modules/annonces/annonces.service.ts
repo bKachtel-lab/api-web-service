@@ -1,8 +1,11 @@
-import { PublicationStatus, Role } from '@prisma/client';
-import { QueryAnnoncesInput, CreateAnnonceInput, UpdateAnnonceInput } from './annonces.schema.js';
-import { prisma } from '../../lib/db.js';
-import { Actor } from '../../auth/policy.js'; 
-
+import { PublicationStatus, Role } from "@prisma/client";
+import {
+  QueryAnnoncesInput,
+  CreateAnnonceInput,
+  UpdateAnnonceInput,
+} from "./annonces.schema.js";
+import { prisma } from "../../lib/db.js";
+import { Actor } from "../../auth/policy.js";
 
 export class AnnoncesService {
   /**
@@ -18,7 +21,7 @@ export class AnnoncesService {
 
     // Filtre par ville (insensible à la casse)
     if (ville) {
-      where.ville = { contains: ville, mode: 'insensitive' };
+      where.ville = { contains: ville, mode: "insensitive" };
     }
 
     if (type) {
@@ -36,7 +39,7 @@ export class AnnoncesService {
       // Un AGENT voit les publiées + SES propres brouillons
       where.OR = [
         { statusPublication: PublicationStatus.PUBLIEE },
-        { agentId: currentUser.id }
+        { agentId: currentUser.id },
       ];
     }
     // L'ADMIN voit tout par défaut (pas de contrainte de statut imposée)
@@ -47,14 +50,14 @@ export class AnnoncesService {
         where,
         skip,
         take: limit,
-        orderBy: { createdAt: 'desc' },
+        orderBy: { createdAt: "desc" },
         include: {
           photos: true,
           agent: {
-            select: { id: true, name: true, email: true }
-          }
-        }
-      })
+            select: { id: true, name: true },
+          },
+        },
+      }),
     ]);
 
     const totalPages = Math.ceil(total / limit);
@@ -65,8 +68,8 @@ export class AnnoncesService {
         total,
         page,
         limit,
-        totalPages
-      }
+        totalPages,
+      },
     };
   }
 
@@ -78,9 +81,9 @@ export class AnnoncesService {
       where: { id },
       include: {
         photos: true,
-        agent: { select: { id: true, name: true, email: true } },
+        agent: { select: { id: true, name: true } },
         questions: true,
-      }
+      },
     });
   }
 
@@ -94,9 +97,9 @@ export class AnnoncesService {
       data: {
         ...annonceData,
         agentId,
-        photos: photos && photos.length > 0 ? { create: photos } : undefined
+        photos: photos && photos.length > 0 ? { create: photos } : undefined,
       },
-      include: { photos: true }
+      include: { photos: true },
     });
   }
 
@@ -110,14 +113,16 @@ export class AnnoncesService {
       where: { id },
       data: {
         ...annonceData,
-        ...(photos ? {
-          photos: {
-            deleteMany: {},
-            create: photos
-          }
-        } : {})
+        ...(photos
+          ? {
+              photos: {
+                deleteMany: {},
+                create: photos,
+              },
+            }
+          : {}),
       },
-      include: { photos: true }
+      include: { photos: true },
     });
   }
 
@@ -126,7 +131,7 @@ export class AnnoncesService {
    */
   async delete(id: string) {
     return prisma.annonce.delete({
-      where: { id }
+      where: { id },
     });
   }
 }
