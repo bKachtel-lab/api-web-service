@@ -10,11 +10,14 @@ import {
   QueryAnnoncesSchema,
   CreateAnnonceSchema,
   UpdateAnnonceSchema,
+  AnnoncePageResponseSchema,
+  AnnonceResponseSchema,
 } from "./annonces.schema.js";
 import { Can } from "../../auth/policy.js";
 import { authenticate } from "../../auth/middleware.js";
 import { Errors } from "../../common/errors.js";
 import { verifyToken } from "../../lib/jwt.js";
+import { errorResponse } from "../../common/error-schema.js";
 
 export const annoncesApp = createRouter();
 const service = new AnnoncesService();
@@ -25,6 +28,8 @@ const service = new AnnoncesService();
 const getAnnoncesRoute = createRoute({
   method: "get",
   path: "/",
+  operationId: "listerAnnonces",
+  tags: ["Annonces"],
   summary: "Lister les annonces",
   security: [{ bearerAuth: [] }], // <-- Permet à Swagger d'envoyer le JWT s'il est renseigné
   description:
@@ -34,8 +39,10 @@ const getAnnoncesRoute = createRoute({
   },
   responses: {
     200: {
-      description: "Liste d'annonces récupérée avec succès",
+      description: "Liste paginée des annonces",
+      content: { "application/json": { schema: AnnoncePageResponseSchema } },
     },
+    400: errorResponse("Paramètres de requête invalides"),
   },
 });
 
@@ -53,25 +60,30 @@ const getAnnonceByIdRoute = createRoute({
   method: "get",
   path: "/{id}",
   summary: "Détail d'une annonce",
+  operationId: "obtenirAnnonce",
+  tags: ["Annonces"],
   security: [{ bearerAuth: [] }], // <-- Permet à Swagger d'envoyer le JWT s'il est renseigné
   request: {
     params: AnnonceIdParamSchema,
   },
   responses: {
-    200: { description: "Détail de l'annonce" },
-    404: { description: "Annonce non trouvée ou non accessible" },
+    200: {
+      description: "Détail de l'annonce",
+      content: { "application/json": { schema: AnnonceResponseSchema } },
+    },
+    404: errorResponse("Annonce introuvable ou brouillon non accessible"),
   },
 });
 
 annoncesApp.openapi(getAnnonceByIdRoute, async (c) => {
   const { id } = c.req.valid("param");
-  const actor = getOptionalActor(c.req.header('Authorization'));
+  const actor = getOptionalActor(c.req.header("Authorization"));
   const annonce = await service.findById(id);
 
   if (!annonce) {
     throw Errors.notFound("Annonce introuvable.");
   }
-/*
+  /*
   // Vérification autorisation pure pour la lecture (visibilité brouillon)
   if (!Can.readAnnonce(actor, annonce)) {
     // Rendu en 404 pour masquer l'existence d'un brouillon non autorisé
@@ -81,7 +93,6 @@ annoncesApp.openapi(getAnnonceByIdRoute, async (c) => {
   if (!annonce || !Can.readAnnonce(actor, annonce)) {
     throw Errors.notFound("Annonce non trouvée");
   }
-
 
   return c.json(annonce, 200);
 });
@@ -93,6 +104,8 @@ const createAnnonceRoute = createRoute({
   method: "post",
   path: "/",
   summary: "Créer une annonce (Agent / Admin)",
+  operationId: "creerAnnonce",
+  tags: ["Annonces"],
   security: [{ bearerAuth: [] }],
   middleware: [authenticate] as const,
   request: {
@@ -101,9 +114,13 @@ const createAnnonceRoute = createRoute({
     },
   },
   responses: {
-    201: { description: "Annonce créée avec succès" },
-    401: { description: "Non authentifié" },
-    403: { description: "Accès réservé aux agents et admins" },
+    201: {
+      description: "Annonce créée",
+      content: { "application/json": { schema: AnnonceResponseSchema } },
+    },
+    400: errorResponse("Données invalides"),
+    401: errorResponse("Non authentifié"),
+    403: errorResponse("Réservé aux agents et admins"),
   },
 });
 
@@ -127,6 +144,8 @@ annoncesApp.openapi(createAnnonceRoute, async (c) => {
 const updateAnnonceRoute = createRoute({
   method: "patch",
   path: "/{id}",
+  operationId: "modifierAnnonce",
+  tags: ["Annonces"],
   summary: "Modifier une annonce",
   security: [{ bearerAuth: [] }],
   middleware: [authenticate] as const,
@@ -135,12 +154,14 @@ const updateAnnonceRoute = createRoute({
     body: { content: { "application/json": { schema: UpdateAnnonceSchema } } },
   },
   responses: {
-    200: { description: "Annonce modifiée" },
-    403: {
-      description:
-        "Interdit : cette annonce ne vous appartient pas (Anti-IDOR)",
+    200: {
+      description: "Annonce modifiée",
+      content: { "application/json": { schema: AnnonceResponseSchema } },
     },
-    404: { description: "Annonce non trouvée" },
+    400: errorResponse("Données invalides"),
+    401: errorResponse("Non authentifié"),
+    403: errorResponse("Accès interdit (Anti-IDOR)"),
+    404: errorResponse("Annonce introuvable"),
   },
 });
 
@@ -169,6 +190,8 @@ annoncesApp.openapi(updateAnnonceRoute, async (c) => {
 const deleteAnnonceRoute = createRoute({
   method: "delete",
   path: "/{id}",
+  operationId: 'supprimerAnnonce',
+  tags: ['Annonces'],
   summary: "Supprimer une annonce",
   security: [{ bearerAuth: [] }],
   middleware: [authenticate] as const,
@@ -176,12 +199,10 @@ const deleteAnnonceRoute = createRoute({
     params: AnnonceIdParamSchema,
   },
   responses: {
-    204: { description: "Annonce supprimée sans contenu retourné" },
-    403: {
-      description:
-        "Interdit : cette annonce ne vous appartient pas (Anti-IDOR)",
-    },
-    404: { description: "Annonce non trouvée" },
+    204: { description: 'Annonce supprimée' },
+    401: errorResponse('Non authentifié'),
+    403: errorResponse('Accès interdit (Anti-IDOR)'),
+    404: errorResponse('Annonce introuvable'),
   },
 });
 

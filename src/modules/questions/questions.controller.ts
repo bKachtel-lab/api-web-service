@@ -6,6 +6,8 @@ import { prisma } from "../../lib/db.js";
 import { authenticate } from "../../auth/middleware.js";
 import { Actor } from "../../auth/policy.js";
 import { Errors } from "../../common/errors.js";
+import { errorResponse } from "../../common/error-schema.js";
+import { QuestionResponseSchema } from "../annonces/annonces.schema.js";
 
 export const questionsApp = createRouter();
 
@@ -34,6 +36,8 @@ const CreateReponseSchema = z
 const askQuestionRoute = createRoute({
   method: "post",
   path: "/annonces/{id}/questions",
+  operationId: "poserQuestion",
+  tags: ["Questions"],
   summary: "Poser une question sur une annonce",
   security: [{ bearerAuth: [] }],
   middleware: [authenticate] as const,
@@ -44,9 +48,13 @@ const askQuestionRoute = createRoute({
     body: { content: { "application/json": { schema: CreateQuestionSchema } } },
   },
   responses: {
-    201: { description: "Question posée avec succès" },
-    401: { description: "Non authentifié" },
-    404: { description: "Annonce introuvable" },
+    201: {
+      description: "Question enregistrée",
+      content: { "application/json": { schema: QuestionResponseSchema } },
+    },
+    400: errorResponse("Données invalides"),
+    401: errorResponse("Non authentifié"),
+    404: errorResponse("Annonce introuvable"),
   },
 });
 
@@ -59,8 +67,7 @@ questionsApp.openapi(askQuestionRoute, async (c) => {
 
   const annonceId = c.req.param("id");
   const annonce = await prisma.annonce.findUnique({ where: { id: annonceId } });
-  if (!annonce)
-    throw Errors.notFound("Annonce introuvable.");
+  if (!annonce) throw Errors.notFound("Annonce introuvable.");
 
   const body = c.req.valid("json");
   const question = await prisma.question.create({
@@ -82,6 +89,8 @@ const answerQuestionRoute = createRoute({
   path: "/questions/{id}/reponse",
   summary: "Répondre à une question (Agent propriétaire)",
   security: [{ bearerAuth: [] }],
+  operationId: "repondreQuestion",
+  tags: ["Questions"],
   middleware: [authenticate] as const,
   request: {
     params: z.object({
@@ -90,11 +99,14 @@ const answerQuestionRoute = createRoute({
     body: { content: { "application/json": { schema: CreateReponseSchema } } },
   },
   responses: {
-    200: { description: "Réponse enregistrée" },
-    403: {
-      description: "Vous n'êtes pas l'agent propriétaire de cette annonce",
+    200: {
+      description: "Réponse enregistrée",
+      content: { "application/json": { schema: QuestionResponseSchema } },
     },
-    404: { description: "Question introuvable" },
+    400: errorResponse("Données invalides"),
+    401: errorResponse("Non authentifié"),
+    403: errorResponse("Vous n'êtes pas l'agent propriétaire de cette annonce"),
+    404: errorResponse("Question introuvable"),
   },
 });
 
@@ -107,8 +119,7 @@ questionsApp.openapi(answerQuestionRoute, async (c) => {
     include: { annonce: true },
   });
 
-  if (!question)
-    throw Errors.notFound("Question introuvable");
+  if (!question) throw Errors.notFound("Question introuvable");
 
   // Vérification : Seul l'agent de l'annonce ou l'admin peut répondre
   if (!Can.respondToQuestion(actor, question.annonce.agentId)) {

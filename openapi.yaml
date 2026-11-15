@@ -116,6 +116,287 @@ components:
       required:
         - email
         - password
+    Question:
+      type: object
+      properties:
+        id:
+          type: string
+        contenu:
+          type: string
+        reponse:
+          type:
+            - string
+            - "null"
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        annonceId:
+          type: string
+        userId:
+          type: string
+      required:
+        - id
+        - contenu
+        - createdAt
+        - updatedAt
+        - annonceId
+        - userId
+    Annonce:
+      type: object
+      properties:
+        id:
+          type: string
+        titre:
+          type: string
+        description:
+          type: string
+        ville:
+          type: string
+        type:
+          type: string
+          enum:
+            - VENTE
+            - LOCATION
+        statusPublication:
+          type: string
+          enum:
+            - BROUILLON
+            - PUBLIEE
+        statusBien:
+          type: string
+          enum:
+            - DISPONIBLE
+            - LOUE
+            - VENDU
+        prix:
+          type: number
+        dateDisponibilite:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        agentId:
+          type: string
+        photos:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              url:
+                type: string
+              alt:
+                type:
+                  - string
+                  - "null"
+              annonceId:
+                type: string
+            required:
+              - id
+              - url
+              - annonceId
+        agent:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            email:
+              type: string
+          required:
+            - id
+            - name
+            - email
+        questions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Question"
+      required:
+        - id
+        - titre
+        - description
+        - ville
+        - type
+        - statusPublication
+        - statusBien
+        - prix
+        - dateDisponibilite
+        - createdAt
+        - updatedAt
+        - agentId
+    AnnoncePage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Annonce"
+        meta:
+          type: object
+          properties:
+            total:
+              type: number
+            page:
+              type: number
+            limit:
+              type: number
+            totalPages:
+              type: number
+          required:
+            - total
+            - page
+            - limit
+            - totalPages
+      required:
+        - items
+        - meta
+    CreateAnnonceInput:
+      type: object
+      properties:
+        titre:
+          type: string
+          minLength: 5
+          maxLength: 120
+          example: Appartement T3 lumineux
+        description:
+          type: string
+          minLength: 10
+          example: Très bel appartement proche centre-ville
+        ville:
+          type: string
+          minLength: 2
+          example: Le Havre
+        type:
+          type: string
+          enum:
+            - VENTE
+            - LOCATION
+          example: VENTE
+        prix:
+          type: number
+          exclusiveMinimum: 0
+          example: 185000
+        dateDisponibilite:
+          type:
+            - string
+            - "null"
+          example: 2026-10-01T00:00:00.000Z
+        photos:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                format: uri
+                example: https://picsum.photos/800/600
+              alt:
+                type: string
+                example: Vue sur le séjour
+            required:
+              - url
+          default: &a1 []
+        statusPublication:
+          type: string
+          enum:
+            - BROUILLON
+            - PUBLIEE
+          default: BROUILLON
+        statusBien:
+          type: string
+          enum:
+            - DISPONIBLE
+            - LOUE
+            - VENDU
+          default: DISPONIBLE
+      required:
+        - titre
+        - description
+        - ville
+        - type
+        - prix
+        - dateDisponibilite
+    UpdateAnnonceInput:
+      type: object
+      properties:
+        titre:
+          type: string
+          minLength: 5
+          maxLength: 120
+          example: Appartement T3 lumineux
+        description:
+          type: string
+          minLength: 10
+          example: Très bel appartement proche centre-ville
+        ville:
+          type: string
+          minLength: 2
+          example: Le Havre
+        type:
+          type: string
+          enum:
+            - VENTE
+            - LOCATION
+          example: VENTE
+        prix:
+          type: number
+          exclusiveMinimum: 0
+          example: 185000
+        dateDisponibilite:
+          type:
+            - string
+            - "null"
+          example: 2026-10-01T00:00:00.000Z
+        photos:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                format: uri
+                example: https://picsum.photos/800/600
+              alt:
+                type: string
+                example: Vue sur le séjour
+            required:
+              - url
+          default: *a1
+        statusPublication:
+          type: string
+          enum:
+            - BROUILLON
+            - PUBLIEE
+          default: BROUILLON
+        statusBien:
+          type: string
+          enum:
+            - DISPONIBLE
+            - LOUE
+            - VENDU
+          default: DISPONIBLE
+    CreateQuestionInput:
+      type: object
+      properties:
+        contenu:
+          type: string
+          minLength: 3
+          example: Est-ce qu'une cave est incluse ?
+      required:
+        - contenu
+    CreateReponseInput:
+      type: object
+      properties:
+        reponse:
+          type: string
+          minLength: 2
+          example: Oui, une cave de 6m2 est incluse.
+      required:
+        - reponse
   parameters: {}
 paths:
   /auth/register:
@@ -194,6 +475,316 @@ paths:
                 $ref: "#/components/schemas/User"
         "401":
           description: Jeton absent, invalide ou expiré
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /annonces:
+    get:
+      operationId: listerAnnonces
+      tags:
+        - Annonces
+      summary: Lister les annonces
+      security:
+        - bearerAuth: []
+      description: Récupère les annonces publiées avec pagination et filtres. Les
+        brouillons ne sont visibles que par leur auteur ou un admin.
+      parameters:
+        - schema:
+            type: integer
+            minimum: 1
+            default: 1
+            example: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+            example: 10
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+            example: Le Havre
+          required: false
+          name: ville
+          in: query
+        - schema:
+            type: string
+            enum:
+              - VENTE
+              - LOCATION
+            example: VENTE
+          required: false
+          name: type
+          in: query
+        - schema:
+            type: number
+            exclusiveMinimum: 0
+            example: 300000
+          required: false
+          name: prixMax
+          in: query
+      responses:
+        "200":
+          description: Liste paginée des annonces
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnnoncePage"
+        "400":
+          description: Paramètres de requête invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Créer une annonce (Agent / Admin)
+      operationId: creerAnnonce
+      tags:
+        - Annonces
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAnnonceInput"
+      responses:
+        "201":
+          description: Annonce créée
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Annonce"
+        "400":
+          description: Données invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Non authentifié
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Réservé aux agents et admins
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /annonces/{id}:
+    get:
+      summary: Détail d'une annonce
+      operationId: obtenirAnnonce
+      tags:
+        - Annonces
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            description: ID unique de l'annonce
+            example: clx123456789
+          required: true
+          name: id
+          in: path
+      responses:
+        "200":
+          description: Détail de l'annonce
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Annonce"
+        "404":
+          description: Annonce introuvable ou brouillon non accessible
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      operationId: modifierAnnonce
+      tags:
+        - Annonces
+      summary: Modifier une annonce
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            description: ID unique de l'annonce
+            example: clx123456789
+          required: true
+          name: id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateAnnonceInput"
+      responses:
+        "200":
+          description: Annonce modifiée
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Annonce"
+        "400":
+          description: Données invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Non authentifié
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Accès interdit (Anti-IDOR)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Annonce introuvable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      operationId: supprimerAnnonce
+      tags:
+        - Annonces
+      summary: Supprimer une annonce
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+            description: ID unique de l'annonce
+            example: clx123456789
+          required: true
+          name: id
+          in: path
+      responses:
+        "204":
+          description: Annonce supprimée
+        "401":
+          description: Non authentifié
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Accès interdit (Anti-IDOR)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Annonce introuvable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /annonces/{id}/questions:
+    post:
+      operationId: poserQuestion
+      tags:
+        - Questions
+      summary: Poser une question sur une annonce
+      security:
+        - bearerAuth: []
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateQuestionInput"
+      responses:
+        "201":
+          description: Question enregistrée
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Question"
+        "400":
+          description: Données invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Non authentifié
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Annonce introuvable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /questions/{id}/reponse:
+    post:
+      summary: Répondre à une question (Agent propriétaire)
+      security:
+        - bearerAuth: []
+      operationId: repondreQuestion
+      tags:
+        - Questions
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateReponseInput"
+      responses:
+        "200":
+          description: Réponse enregistrée
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Question"
+        "400":
+          description: Données invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Non authentifié
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Vous n'êtes pas l'agent propriétaire de cette annonce
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Question introuvable
           content:
             application/json:
               schema:
