@@ -166,6 +166,10 @@ export const resolvers = {
       if (!annonce || !Can.readAnnonce(ctx.actor, annonce)) return null;
       return annonce;
     },
+
+    user: (_: unknown, { id }: { id: string }) =>
+    prisma.user.findUnique({ where: { id }, select: { id: true, name: true } }),
+
   },
 
   Mutation: {
@@ -318,6 +322,17 @@ export const resolvers = {
   Question: {
     user: (q: Question, _args: unknown, ctx: GraphQLContext) =>
       ctx.loaders.auteurById.load(q.userId),
+      annonce: (q: { annonceId: string }, _: unknown, ctx: GraphQLContext) => ctx.loaders.annonceById.load(q.annonceId),
+
     createdAt: (q: Question) => q.createdAt.toISOString(),
   },
+
+  User: {
+  annonces:  (u: { id: string }, _: unknown, ctx: GraphQLContext) => ctx.loaders.annoncesByAgent.load(u.id),
+  questions: (u: { id: string }, _: unknown, ctx: GraphQLContext) => ctx.loaders.questionsByUser.load(u.id),
+},
+
+Photo: {
+  annonce: (p: { annonceId: string }, _: unknown, ctx: GraphQLContext) => ctx.loaders.annonceById.load(p.annonceId),
+},
 };

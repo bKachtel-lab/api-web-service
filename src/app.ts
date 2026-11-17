@@ -60,4 +60,4 @@ app.openAPIRegistry.registerComponent("securitySchemes", "bearerAuth", {
   bearerFormat: "JWT",
 });
 app.doc31("/openapi.json", openApiConfig);
-app.get("/docs", swaggerUI({ url: "/openapi.json" }));
+//app.get("/docs", swaggerUI({ url: "/openapi.json" }));

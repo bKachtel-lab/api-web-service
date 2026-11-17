@@ -29,5 +29,6 @@ function readActor(request: Request): Actor | null {
 }
 
 export function buildContext(request: Request): GraphQLContext {
-  return { actor: readActor(request), loaders: createLoaders() };
+  const actor = readActor(request);
+  return { actor , loaders: createLoaders(actor) };
 }

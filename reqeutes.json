@@ -1,0 +1,82 @@
+# ==========================================
+# 1. RÉCUPÉRER TOUTES LES ANNONCES (Pagination)
+# ==========================================
+query GetAllAnnonces {
+  annonces(limit: 10, page: 1) {
+    items {
+      id
+      titre
+      ville
+      prix
+      statusPublication
+      createdAt
+    }
+    meta {
+      total
+      page
+      limit
+      totalPages
+    }
+  }
+}
+
+# ==========================================
+# 2. RÉCUPÉRER UNE ANNONCE ET SES QUESTIONS
+# (Mettez l'ID de l'annonce dans les variables en bas)
+# ==========================================
+query GetAnnonceWithQuestions($id: ID!) {
+  annonce(id: $id) {
+    id
+    titre
+    ville
+    prix
+    questions {
+      id
+      contenu
+      reponse
+      createdAt
+      user {
+        id
+        name
+      }
+    }
+  }
+}
+
+# ==========================================
+# 3. CRÉER UNE ANNONCE (Mutation Protégée)
+# (N'oubliez pas d'ajouter le Header "Authorization: Bearer <token>")
+# ==========================================
+mutation CreateNewAnnonce($input: CreateAnnonceInput!) {
+  createAnnonce(input: $input) {
+    annonce {
+      id
+      titre
+      prix
+      statusPublication
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+
+# ==========================================
+# 4. MODIFIER UNE ANNONCE (Mutation Protégée)
+# (Nécessite aussi le Header "Authorization: Bearer <token>")
+# ==========================================
+mutation UpdateExistingAnnonce($id: ID!, $input: UpdateAnnonceInput!) {
+  updateAnnonce(id: $id, input: $input) {
+    annonce {
+      id
+      titre
+      prix
+      statusPublication
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

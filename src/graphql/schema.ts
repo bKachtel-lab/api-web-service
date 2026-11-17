@@ -45,12 +45,15 @@ export const typeDefs = /* GraphQL */ `
   type User {
     id: ID!
     name: String!
+    annonces: [Annonce!]!
+    questions: [Question!]!
   }
 
   type Photo {
     id: ID!
     url: String!
     alt: String
+    annonce: Annonce
   }
 
   type Question {
@@ -60,6 +63,8 @@ export const typeDefs = /* GraphQL */ `
     createdAt: String!
     annonceId: ID!
     user: User!
+    annonce: Annonce
+    
   }
 
   type Annonce {
@@ -134,6 +139,7 @@ export const typeDefs = /* GraphQL */ `
       prixMax: Float
     ): AnnoncePage!
     annonce(id: ID!): Annonce
+    user(id: ID!): User
   }
 
   type Mutation {
