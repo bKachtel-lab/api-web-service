@@ -5,6 +5,7 @@
 
 import DataLoader from "dataloader";
 import { prisma } from "../lib/db.js";
+import { Can, type Actor } from "../auth/policy.js";
 
 /** Auteur exposé publiquement : jamais d'email ni de passwordHash. */
 export interface AuteurPublic {
@@ -31,7 +32,7 @@ function groupBy<T>(rows: T[], key: (row: T) => string): Map<string, T[]> {
  * Règle d'or d'un batch : renvoyer un tableau de MÊME LONGUEUR et dans le MÊME
  * ORDRE que les clés reçues, sinon DataLoader associe les mauvaises données.
  */
-export function createLoaders() {
+export function createLoaders(actor: Actor | null) {
   // Auteur d'une annonce / auteur d'une question.
   // `select` explicite : seuls id et name sortent de la base (sécurité).
   const auteurById = new DataLoader<string, AuteurPublic | null>(
@@ -67,8 +68,41 @@ export function createLoaders() {
       return annonceIds.map((id) => grouped.get(id) ?? []);
     },
   );
+  // Annonces d'un agent, filtrées par la politique de lecture.
+  const annoncesByAgent = new DataLoader(async (agentIds: readonly string[]) => {
+    const rows = await prisma.annonce.findMany({
+      where: { agentId: { in: [...agentIds] } },
+      orderBy: { createdAt: "desc" },
+    });
+    const visibles = rows.filter((a) => Can.readAnnonce(actor, a));
+    return agentIds.map((id) => visibles.filter((a) => a.agentId === id));
+  });
 
-  return { auteurById, photosByAnnonce, questionsByAnnonce };
-}
+  // Questions posées par un utilisateur : seulement sur des annonces lisibles.
+  const questionsByUser = new DataLoader(async (userIds: readonly string[]) => {
+    const rows = await prisma.question.findMany({
+      where: { userId: { in: [...userIds] } },
+      orderBy: { createdAt: "desc" },
+      include: { annonce: { select: { agentId: true, statusPublication: true } } },
+    });
+    return userIds.map((id) => rows.filter((q) => q.userId === id));
+  });
+
+  // Une annonce par id (pour Question.annonce et Photo.annonce), filtrée.
+  const annonceById = new DataLoader(async (ids: readonly string[]) => {
+    const rows = await prisma.annonce.findMany({ where: { id: { in: [...ids] } } });
+    const byId = new Map(rows.filter((a) => Can.readAnnonce(actor, a)).map((a) => [a.id, a]));
+    return ids.map((id) => byId.get(id) ?? null);
+  });
+
+
+return {
+    auteurById,
+    photosByAnnonce,
+    questionsByAnnonce,
+    annoncesByAgent,
+    questionsByUser,
+    annonceById,
+  };}
 
 export type Loaders = ReturnType<typeof createLoaders>;
